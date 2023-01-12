@@ -16,14 +16,14 @@ When you compile a code, you can choose the "architecture" to be 32-bit or 64-bi
 
 The RAM is the "passive" component, it's where the current process data is actually being stored as 1s and 0s.\
 \
-The CPU is the "active" part, it basically provides a "representation" of this memory (for 32-bit, the collection of all hex strings from `0x00000000` to `0xffffffff`), divides it into "stack" and "heap", and defines operations on it. Each of these hex strings "points" to a specific region in the RAM, so that the processor knows where to find data.\
+The CPU is the "active" part, it both provides a "representation" of this memory space (for 32-bit, consisting of all hex strings from `0x00000000` to `0xffffffff`), and defines operations on it. Each of these hex strings "points" to a specific region in the RAM, so that the processor knows where to find data.\
 \
-Keep in mind that as everything is stored in RAM, the compiled assembly instruction themselves have assigned pointers too.\
+Keep in mind that as everything is stored in RAM, the assembly instruction themselves have assigned pointers too, if this was not the case, the CPU wouldn't know what instruction to execute next.\
 \
-To read and write data from this "map", the CPU uses "registers", which are also 32-bit addresses NOT located in RAM, that the CPU uses for specific purposes. The most important ones are:
+To read and write data from memory, the CPU uses "registers", which are also 32-bit addresses NOT located in RAM, that the CPU uses for specific purposes. The most important ones are:
 - EAX: Used to store the return value of functions, and perform operations on variables.
 - ESP: Used to store the pointer to the top of the "stack".
-- EBP: Used to store the pointer to the "bottom" of the stack.
+- EBP: Used to backup the value of ESP before it changes, also known as "base pointer".
 - EDI / ESI / EDX / ECS: In order, they store the first 4 arguments of a function.
 - EIP: Used to store the pointer to the next assembly instruction.
 
