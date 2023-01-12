@@ -14,9 +14,7 @@ When you compile a code, you can choose the "architecture" to be 32-bit or 64-bi
 - The RAM memory map.
 - The CPU registers and their size.
 
-The RAM is the "passive" component, it's where the current process data is actually being stored as 1s and 0s.\
-\
-The CPU is the "active" part, it both provides a "map" of this memory space (for 64-bit, consisting of all hex strings from `0x0000000000000000` to `0xffffffffffffffff`), and defines operations on it. Each of these hex strings "points" to a specific region in the RAM, so that the processor knows where to find data.\
+The RAM is the "passive" component, it's where the current process data is actually being stored as 1s and 0s. After a program gets compiled and executed, a "memory map" of the RAM is generated, for 64-bit, it consists of all hex strings from `0x0000000000000000` to `0xffffffffffffffff` also called "pointers". This is essential because the CPU needs to know where data is actually stored to perform operations, to each of these pointers corresponds a value stored in the actual RAM.\
 \
 The memory map is divided into "stack" and "heap".\
 \
