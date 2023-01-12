@@ -1,7 +1,10 @@
 ## Theory
 
 A binary is the compiled version of a program written in a programming language. The compiled code is known as "assembly", 
-it can be thought of the programming language for your CPU.
+it can be thought of as the programming language for your CPU. A line of assembly "code" will be called "instruction" from now on, and "assembly" will be called "ASM".\
+\
+All the 
+An ASM instruction corresponds to an elementary operation on the memory.
 
 
 
