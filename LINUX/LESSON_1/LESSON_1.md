@@ -16,7 +16,9 @@ When you compile a code, you can choose the "architecture" to be 32-bit or 64-bi
 
 The RAM is the "passive" component, it's where the current process data is actually being stored as 1s and 0s.\
 \
-The CPU is the "active" part, it both provides a "representation" of this memory space (for 64-bit, consisting of all hex strings from `0x0000000000000000` to `0xffffffffffffffff`), and defines operations on it. Each of these hex strings "points" to a specific region in the RAM, so that the processor knows where to find data. Contary to 32-bit, the entire (2^64) addresses are not utilized mapping. Only "canonical" addresses are accepted, that is the range `0x0000000000000000` to `0x00007FFFFFFFFFFF` and `0xFFFF800000000000` to `0xFFFFFFFFFFFFFFFF`. Any address outside this range is non-canonical.\
+The CPU is the "active" part, it both provides a "representation" of this memory space (for 64-bit, consisting of all hex strings from `0x0000000000000000` to `0xffffffffffffffff`), and defines operations on it. Each of these hex strings "points" to a specific region in the RAM, so that the processor knows where to find data.\
+\
+Contary to 32-bit, not all the (2^64) addresses are utilized for memory mapping. Only "canonical" addresses are used, that is the range `0x0000000000000000` to `0x00007FFFFFFFFFFF` and `0xFFFF800000000000` to `0xFFFFFFFFFFFFFFFF`. Any address outside this range is non-canonical.\
 \
 Keep in mind that as everything is stored in RAM, the assembly instruction themselves have assigned pointers too, if this was not the case, the CPU wouldn't know what instruction to execute next.\
 \
