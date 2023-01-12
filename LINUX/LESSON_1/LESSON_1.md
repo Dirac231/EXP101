@@ -21,6 +21,7 @@ The CPU is the "active" part, it both provides a "map" of this memory space (for
 The memory map is divided into "stack" and "heap".\
 \
 The stack is the region used to manage functions. When a function is called, local variables are allocated on the stack, get processed, and when the function returns, the return value also is allocated on the stack. After the return, the "stack frame" which was reserved for the function gets freed, and can be re-used.\
+\
 Allocation and de-allocation happens with the "push" and "pop" instructions, which mean "add" or "remove and return" 8 bytes from the top of the stack frame. As these are the only operations you can do on the stack, it's commonly referred as "static" memory, because you have no control over where the allocation happens.\
 \
 The "heap" is the region used for every other kind of memory management, it's dynamic, meaning that you can allocate, extend, de-allocate memory for multiple kinds of data, and static/global variables are here.\
