@@ -35,4 +35,5 @@ To handle the data received from the RAM, the CPU uses "registers", which are al
 - RDI / RSI / RDX / RCX: In order, they store the first 4 arguments of a function.
 - RIP: Used to store the pointer to the next assembly instruction. Only accepts a canonical address.
 \
+\
 To complete the lesson, please complete all exercises in the corresponding `.md` file.
