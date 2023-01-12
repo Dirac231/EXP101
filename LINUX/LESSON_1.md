@@ -1,10 +1,12 @@
 ## Tools Installation
 Before continuing, please use this one-line command to install the necessary tools for the first lesson:
-```sudo apt install -Y gdb python3-pip && git clone https://github.com/longld/peda.git ~/peda && echo "source ~/peda/peda.py" >> ~/.gdbinit && pip3 install pwntools```
+```
+sudo apt install -Y gdb python3-pip && git clone https://github.com/longld/peda.git ~/peda && echo "source ~/peda/peda.py" >> ~/.gdbinit && pip3 install pwntools
+```
 
 ## Debugging and Assembly
 
-A binary is the compiled version of a program written in a programming language.\
+A "binary" is the compiled version of a program written in a programming language.\
 \
 The compiled code is known as "assembly", it can be thought of as the programming language for your CPU. A line of assembly "code" is called "instruction".\
 \
@@ -25,5 +27,5 @@ To read and write data from this "map", the CPU uses "registers", which are 4-by
 
 To compile a C source code to a 32-bit linux binary, use the `gcc -m32 [file.c] -o binary` command.\
 \
-Then, run `gdb [binary]` to enter the `gdb-peda` console and start debugging. To complete the lesson, 
+Then, run `gdb [binary]` to enter the `gdb-peda` console and start debugging. To complete the lesson, please complete all exercises in the corresponding `.md` file.
 
