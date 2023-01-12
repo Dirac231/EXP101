@@ -23,4 +23,4 @@ int main(int argc, char** argv){
   - The command `x/s [address]` can display the content of an address, extract the string value `"Hello"` using this command.
     - Do the same using `x/bx [address]`, what is the difference this time?
   - Find the instruction that calls the function `puts()`, where are the argument and return value stored?
-  - Find the instruction that returns the value `1` from the `main()`, what register is used
+  - Find the instruction that returns the value `1` from the `main()`, what register is used for this?
