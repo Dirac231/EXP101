@@ -4,7 +4,7 @@ Before continuing, please use this one-line command to install the necessary too
 sudo apt install -Y gdb python3-pip && git clone https://github.com/longld/peda.git ~/peda && echo "source ~/peda/peda.py" >> ~/.gdbinit && pip3 install pwntools
 ```
 
-## Debugging and Assembly
+## Theory & Introduction
 
 A "binary" is the compiled version of a program written in a programming language.\
 \
