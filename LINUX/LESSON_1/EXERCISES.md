@@ -54,5 +54,5 @@ The program takes an input from the terminal, then calls the `overflow()` functi
   - You can delete a breakpoint by id with `d [id]`
 - Run the binary supplying an input with `r [your_input]`, do you hit the breakpoint?
   - Advance by one instruction with the `nexti` command, then continue the execution with `c`
-  - Do the same, but supply an input longer than 25, what happens after `nexti`?
+  - Do the same, but supply an input longer than 25, what happens after `nexti`? Why?
 
