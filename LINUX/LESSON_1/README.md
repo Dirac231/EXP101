@@ -28,8 +28,6 @@ The "heap" is the region used for every other kind of memory management, it's dy
 \
 Contary to 32-bit, not all the (2^64) addresses are utilized for memory mapping. Only "canonical" addresses are used, that is the range `0x0000000000000000` to `0x00007FFFFFFFFFFF` and `0xFFFF800000000000` to `0xFFFFFFFFFFFFFFFF`. Any address outside this range is non-canonical.\
 \
-
-\
 To handle the data received from the RAM, the CPU uses "registers", which are also 64-bit addresses NOT located in RAM, that the CPU uses for specific purposes. The most important ones are:
 - RAX: Used to store the return value of functions, and perform temporary operations.
 - RSP: Used to store the pointer to the top of the stack.
