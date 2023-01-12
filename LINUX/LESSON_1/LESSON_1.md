@@ -24,7 +24,7 @@ The stack is the region used to manage functions. When a function is called, loc
 \
 Allocation and de-allocation happens with the "push" and "pop" instructions, which mean "add" or "remove and return" 8 bytes from the top of the stack frame. As these are the only operations you can do on the stack, it's commonly referred as "static" memory, because you have no control over where the allocation happens.\
 \
-The "heap" is the region used for every other kind of memory management, it's dynamic, meaning that you can allocate, extend, de-allocate memory for multiple kinds of data, and static/global variables are here.\
+The "heap" is the region used for every other kind of memory management, it's dynamic, meaning that you can allocate, extend, shrink, de-allocate memory for multiple kinds of data, and static/global variables are here.\
 \
 Contary to 32-bit, not all the (2^64) addresses are utilized for memory mapping. Only "canonical" addresses are used, that is the range `0x0000000000000000` to `0x00007FFFFFFFFFFF` and `0xFFFF800000000000` to `0xFFFFFFFFFFFFFFFF`. Any address outside this range is non-canonical.\
 \
