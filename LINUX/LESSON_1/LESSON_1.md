@@ -8,7 +8,7 @@ sudo apt install -Y gdb python3-pip && git clone https://github.com/longld/peda.
 
 A "binary" is the compiled version of a program written in a programming language.\
 \
-The compiled code is known as "assembly", it can be thought of as the programming language for your CPU. A line of assembly "code" is called "instruction".\
+The compiled code is known as "assembly", it can be thought of as the programming language for your CPU. A line of assembly "code" is called "instruction", and corresponds to a single CPU operation.\
 \
 When you compile a code, you can choose the "architecture" to be 32-bit or 64-bit. The assembly code you will get is slightly different, this is because the architecture decides two things:
 - The RAM memory map.
