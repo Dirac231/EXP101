@@ -25,7 +25,7 @@ To read and write data from this "map", the CPU uses "registers", which are 4-by
 - EDI / ESI / EDX / ECS: In order, they store the first 4 arguments of a function.
 - EIP: Used to store the pointer to the next assembly instruction.
 
-To compile a C source code to a 32-bit linux binary, use the `gcc -m32 [file.c] -o binary` command.\
+To compile a C source code to a 32-bit linux binary, use the `gcc -m32 [file.c] -o binary` command. Then, start the debugging process with the command `gdb binary`.\
 \
-Then, run `gdb [binary]` to enter the `gdb-peda` console and start debugging. To complete the lesson, please complete all exercises in the corresponding `.md` file.
+To complete the lesson, please complete all exercises in the corresponding `.md` file.
 
