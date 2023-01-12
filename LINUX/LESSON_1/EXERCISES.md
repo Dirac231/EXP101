@@ -25,3 +25,34 @@ int main(int argc, char** argv){
   - Do the same using `x/bx [address]`, this is called "hex dump" output. Decode the hex output to a string, what do you get?
   - Find the instruction that calls the function `puts()`, where are the argument and return value stored?
   - Find the instruction that returns the value `1` from the `main()`, what register is used for this?
+
+## Exercise 2
+
+Consider the following `overflow.c` program:
+
+```C
+#include <string.h>
+
+int overflow(char* input){
+  char buf[25];
+  strcpy(buf, input);
+  return 1;
+}
+
+int main(int argc, char** argv){
+  overflow(argv[1]);
+  printf("Everything is ok!");
+  return 1;
+}
+```
+The program takes an input from the terminal, then calls the `overflow()` function on it, storing the input in the `buf` array.
+
+- Disassemble the `main()` function, how do you know that `argv[1]` is passed to `overflow()`?
+- Disassemble the `overflow()` function, examine the call to `strcpy()`, where is `buf` allocated?
+- Set a "breakpoint" to the `overflow()` function, with `b overflow`, this will stop the execution once the function is reached
+  - You can display all the breakpoints with `i b`
+  - You can delete a breakpoint by id with `d [id]`
+- Run the binary supplying an input with `r [your_input]`, do you hit the breakpoint?
+  - Advance by one instruction with the `nexti` command, then continue the execution with `c`
+  - Do the same, but supply an input longer than 25, what happens after `nexti`?
+
