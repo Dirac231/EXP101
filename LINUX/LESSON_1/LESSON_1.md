@@ -22,7 +22,7 @@ Contary to 32-bit, not all the (2^64) addresses are utilized for memory mapping.
 \
 Keep in mind that as everything is stored in RAM, the assembly instruction themselves have assigned pointers too, if this was not the case, the CPU wouldn't know what instruction to execute next.\
 \
-To read and write data from memory, the CPU uses "registers", which are also 64-bit addresses NOT located in RAM, that the CPU uses for specific purposes. The most important ones are:
+To handle the data received from the RAM, the CPU uses "registers", which are also 64-bit addresses NOT located in RAM, that the CPU uses for specific purposes. The most important ones are:
 - RAX: Used to store the return value of functions, and perform temporary operations.
 - RSP: Used to store the pointer to the top of the "stack".
 - RBP: Used to backup the value of ESP before it changes, also known as "base pointer".
