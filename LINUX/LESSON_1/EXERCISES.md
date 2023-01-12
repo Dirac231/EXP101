@@ -20,7 +20,7 @@ int main(int argc, char** argv){
 ```
 - From `gdb`, run the command `disas main` to get the assembly code for the `main()` function.
   - Find the instructions that create the integer `n` and the string `hello`, where are these variables allocated?
-  - The command `x/s [address]` can display the content of an address, extract the string value `"Hello"` using this command.
-    - Do the same using `x/bx [address]`, what is the difference this time?
+  - The command `x/s [address]` can display the string content of an address, use it to extract the string value `"Hello"`.
+    - Do the same using `x/bx [address]`, this is called "hex dump" output. Decode the hex output to a string, what do you get?
   - Find the instruction that calls the function `puts()`, where are the argument and return value stored?
   - Find the instruction that returns the value `1` from the `main()`, what register is used for this?
