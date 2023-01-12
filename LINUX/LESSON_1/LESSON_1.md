@@ -18,7 +18,8 @@ The RAM is the "passive" component, it's where the current process data is actua
 \
 The CPU is the "active" part, it both provides a "map" of this memory space (for 64-bit, consisting of all hex strings from `0x0000000000000000` to `0xffffffffffffffff`), and defines operations on it. Each of these hex strings "points" to a specific region in the RAM, so that the processor knows where to find data.\
 \
-The memory map is divided into "stack" and "heap". The stack is the region used to manage functions. When a function is called, local variables are allocated on the stack, get processed, and when the function returns, the return value can also be processed. Finally, the "stack frame" which was reserved for the function gets freed, and can be re-used. Allocation and de-allocation happens with the "push" and "pop" instructions, which mean "add" or "remove and return" 8 bytes from the top of the stack frame.
+The memory map is divided into "stack" and "heap". The stack is the region used to manage functions. When a function is called, local variables are allocated on the stack, get processed, and when the function returns, the return value also is allocated on the stack. After the return, the "stack frame" which was reserved for the function gets freed, and can be re-used.\
+Allocation and de-allocation happens with the "push" and "pop" instructions, which mean "add" or "remove and return" 8 bytes from the top of the stack frame.
 Contary to 32-bit, not all the (2^64) addresses are utilized for memory mapping. Only "canonical" addresses are used, that is the range `0x0000000000000000` to `0x00007FFFFFFFFFFF` and `0xFFFF800000000000` to `0xFFFFFFFFFFFFFFFF`. Any address outside this range is non-canonical.\
 \
 Keep in mind that as everything is stored in RAM, the assembly instruction themselves have assigned pointers too, if this was not the case, the CPU wouldn't know what instruction to execute next.\
