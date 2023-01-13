@@ -24,10 +24,11 @@ int main(int argc, char** argv){
   - Find the instruction that allocates the variable `random`, notice how `QWORD` is used for chars.
     - Do the same for the string `random2`, where is it allocated?
   - The command `x/s [address]` can display the string content from an address, use it to extract the string value `"Hello"`.
-    - You can specify the number of strings to display, starting from a specific address, with `x/[number]s`. Output "random" and "random2" in a single command.
-    - You can subtract or add bytes from registers with `+` or `-` operators, like "x/s [adr]+100" will inspect the address at 100 bytes more than [adr].
+    - You can specify the number of strings to display, starting from a specific address, with `x/[number]s`. Use this to print the "random" and "random2" variables in a single command.
+    - You can subtract or add bytes from addresses with `+` or `-` operators, `x/s [adr]+100` will inspect the address at 100 bytes more than `[adr]`.
     - Instead of an address, you can also specify registers, using the "$" symbol before the name (`$esp` or `$rax+100`)
-    - Try to access the `$esp-500` value, do you get a value? Why is that?
+    - Instead of strings, the `x/[number]bx` format can be used to print a certain number of bytes starting from an address.
+    - Access the 500 bytes from the top of the stack, do you get a value? Why is that?
   - Find the instruction that calls the function `puts()`, where are the argument and return value stored?
   - Find the instruction that returns the value `1` from the `main()`, what register is used for this?
 
