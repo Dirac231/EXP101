@@ -39,9 +39,9 @@ To handle the data from the RAM, the CPU uses "registers", which are "hardware" 
 
 In the following, the word "object" will be used as an alias for "address", "value" or "register". Each assembly instruction can take at most 2 arguments, the most important ones are:
 - `mov    [object_1] [object_2]`
-  - In `gbd` notation, this moves the **value** contained in "object_2" into "object_1"
+  - In `gbd` notation, moves the **value** contained in "object_2" into "object_1"
 - `lea    [object_1] [object_2]`
-  - In `gdb` notation, this moves the **address** of "object_2" into "object_1", usually in `gdb`, square brackets around "object_2" will indicate that addresses are used.
+  - In `gdb` notation, moves the **address** of "object_2" into "object_1", usually in `gdb`, square brackets around "object_2" will indicate that addresses are used.
 - `pop    [object]`
   - Removes 8 bytes from the stack top address (kept in the `rsp`) and moves those bytes in `[object]`
 - `push   [object]`
