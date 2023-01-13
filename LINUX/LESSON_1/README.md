@@ -49,8 +49,8 @@ In the following, the word "object" will be used as an alias for "address", "val
 - `jmp    [address]`
   - Jumps to a specific address and continues execution from there.
 - `call   [function]`
-  - Calls a function, first processes the arguments (using `rax` with `rdi`, `rsi`, ...), then pushes the `return` address, then moves the function address into the `rip`. Space for local variables is reserved by "subtracting" the `rsp`, for example `subl 0x8, $esp`
+  - Calls a function, first processes the arguments (using `rax` with `rdi`, `rsi`, ...), then pushes the `return` address, then moves the function address into the `rip`. Space for local variables is reserved by "subtracting" the `rsp`, for example `subl esp, 0x8` allocates 8 bytes.
 - `ret`    
   - Does a `pop rip` followed by a `jmp [return_address]`, at the end of a function call.
 
-To complete the lesson, please complete all exercises in the corresponding `.md` file.
+Exercises are in the corresponding `.md` file.
