@@ -14,7 +14,7 @@ When you compile a code, you can choose the target "architecture" to be 32-bit o
 - The RAM memory map.
 - The CPU registers and their size.
 
-The RAM is the "passive" component, it's where a process data is physically stored. After a binary gets executed, a "memory map" of the RAM is generated, for 64-bit, it consists of all hex strings from `0x0000000000000000` to `0xffffffffffffffff` also called "pointers". To each of these pointers corresponds a value stored in the physical RAM, the CPU uses this "map" to read/write data from the RAM.\
+The RAM is the "passive" component, it's where a process data is physically stored. After a binary gets executed, a "memory map" of the RAM is generated (also called "virtual address space"), for 64-bit, it consists of all hex strings from `0x0000000000000000` to `0xffffffffffffffff` called "pointers". To each of these pointers corresponds a value stored in the physical RAM, the CPU uses this "map" to read/write data from the RAM.\
 \
 As everything is stored in RAM, every assembly instruction of the binary also has a dedicated pointer, if this was not the case, the CPU wouldn't know what instruction to execute next.\
 \
@@ -26,9 +26,9 @@ Allocation and de-allocation from the stack happen with the "push" and "pop" ins
 \
 The "heap" is the region used for every other kind of memory management, it's dynamic, meaning that you can allocate, extend, shrink, de-allocate memory for multiple kinds of data, and static/global variables are here.\
 \
-Contary to 32-bit, not all the (2^64) addresses are utilized for memory mapping. Only "canonical" addresses are used, that is the range `0x0000000000000000` to `0x00007FFFFFFFFFFF` and `0xFFFF800000000000` to `0xFFFFFFFFFFFFFFFF`. Any address outside this range is non-canonical.\
+Contary to 32-bit, not all the (2^64) addresses are utilized for memory mapping. Only "canonical" addresses are used, that is the range `0x0000000000000000` to `0x00007FFFFFFFFFFF` and `0xFFFF800000000000` to `0xFFFFFFFFFFFFFFFF`. Any address outside this range is non-canonical, notice how the canonical ranges are 48-bits long.\
 \
-To handle the data received from the RAM, the CPU uses "registers", which are also 64-bit addresses NOT located in RAM, that the CPU uses for specific purposes. The most important ones are:
+To handle the data from the RAM, the CPU uses "registers", which are "hardware" 64-bit addresses (therefore NOT located in RAM), that the CPU uses for specific purposes. The most important ones are:
 - RAX: Used to store the return value of functions, and perform temporary operations.
 - RSP: Used to store the pointer to the top of the stack.
 - RBP: Used to backup the value of ESP before it changes, also known as "base pointer".
