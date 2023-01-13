@@ -37,14 +37,20 @@ To handle the data from the RAM, the CPU uses "registers", which are "hardware" 
 
 ## Assembly Instructions
 
-In the following, the word "object" will be used as an alias for "address", "value" or "register". Each assembly instruction can take at most 2 arguments, the ones responsible for function handling, and thus for handling the stack, are:
+In the following, the word "object" will be used as an alias for "address", "value" or "register". Each assembly instruction can take at most 2 arguments, the most important ones, responsible for function handling and the common operations, are:
+- `mov    [object_1] [object_2]`
+  - In `gbd` notation, this moves the **value** contained in "object_2" into "object_1"
+- `lea    [object_1] [object_2]`
+  - In `gdb` notation, this moves the **address** of "object_2" into "object_1", usually square brackets around "object_2" will indicate that addresses are used.
 - `pop    [object]`
   - Removes 8 bytes from the stack top address (kept in the `rsp`) and moves those bytes in `[object]`
 - `push   [object]`
   - Pushes `[object]` to the top of the stack (now `rsp` will point to this object address)
-- `call   [function]`
-  - Calls a function, first processes the arguments (with `rdi`, `rsi`, ...), then pushes the `return` address, then moves the function address into the `rip`. Space for local variables is reserved, by "subtracting" the `rsp`, for example `subl 0x8, $esp`
 - `jmp    [address]`
-- `ret    (this actually means "pop rip" + "jmp [return_address]")`
+  - Jumps to a specific address and continues execution from there.
+- `call   [function]`
+  - Calls a function, first processes the arguments (using `rax` with `rdi`, `rsi`, ...), then pushes the `return` address, then moves the function address into the `rip`. Space for local variables is reserved by "subtracting" the `rsp`, for example `subl 0x8, $esp`
+- `ret`    
+  - Does a `pop rip` followed by a `jmp [return_address]`, at the end of a function call.
 
 To complete the lesson, please complete all exercises in the corresponding `.md` file.
