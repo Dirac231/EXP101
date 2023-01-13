@@ -24,7 +24,8 @@ There are various protections that make the exploitation of a stack overflow mor
 - NX Bit
   - Marks the stack as non-executable. You can overwrite the `RIP`, but if you directly place code on the stack it will not be executed. 
   - As you can still overwrite the `RIP`, you have full control over the execution flow of the binary, what if you can generate arbitrary code by re-using the binary instructions themselves? This is called `ROP-oriented` bypass.
-- ASLR & PIE
-  - ASLR Randomizes the stack and heap memory. Reaching the `RIP` or any other addresses in that memory region will be difficult, because they will be random after every execution. ASLR is actually a OS security measure, you can check if it's enabled with the command: `cat /proc/sys/kernel/randomize_va_space`, if the output is `2` then ASLR is enabled on your OS.
-  - PIE is an additional security measure that only works if ASLR is on. At execution, it generates a random "base" address, then shifts every other address by an offset with respect to this "base". The addresses that PIE target are outside the stack/heap, and are reserved to call C standard libraries, like `LIBC`, that contains the `gets()` and `puts()`  functions, for example.
-  - If only ASLR is enabled, the library region is not randomized, what if you reach dangerous functions in `LIBC` and use them to execute code?  This is called `RET2LIBC` bypass.
+- ASLR
+  - ASLR Randomizes the stack and heap memory. Reaching the `RIP` or any other addresses in that memory region will be difficult, because they will be random after every execution. It is a OS security measure, you can check if it's enabled with the command: `cat /proc/sys/kernel/randomize_va_space`, if the output is `2` then ASLR is enabled.
+  - Not all the memory is fully randomized, however. The addresses of the actual binary components, for example, are still "relatively" randomized (and only if the `PIE` flag of `gcc` was used at compilation) which means they are all _**at the same offset from a random address**_. Crucially, this also holds for addresses of shared libraries that the code uses, for example `LIBC` where the `gets()` and `puts()` functions are. What if you abuse this "relative" randomization to reach dangerous functions and execute arbitrary code? This is called `RET2` bypass.
+- CANARY
+  - A canary is a random address put on the stack, that gets checked prior to a function return. If they get overwritten (for example during a overflow) the whole execution of the program stops.
