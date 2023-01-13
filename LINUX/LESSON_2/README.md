@@ -26,3 +26,5 @@ There are various protections that make the exploitation of a stack overflow mor
   - There are two versions, "Full" and "Partial" (which is the default in the latest `gcc`)
   - "Full RELRO" will resolve every library function address at the beginning of execution, saving those addresses in a read-only table called `GOT`. This table contains a sub-section called `PLT`, that is responsible to actually find the function address and saving it in `GOT`. "Full RELRO" makes `RET2GOT` and `RET2PLT` attacks impossible, as you lose write permission in both regions.
   - "Partial RELRO" is not a problem and allows both bypasses to be used. Library function addresses are resolved dynamically and `PLT` calls are made the first time a function is encountered. Both `GOT` and `PLT` sections remain writable.
+
+Exercises are in the corresponding `.md` file.
