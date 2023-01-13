@@ -19,14 +19,14 @@ There are various protections that make the exploitation of a stack overflow mor
 - NX Bit
   - Marks the stack as non-executable. You can overwrite the `RIP`, but if you directly place code on the stack it will not be executed. 
   - NX is not really a security measure. Since you can still overwrite the `RIP`, you have full control over the execution flow of the binary, so you can still execute arbitrary code by re-using the binary instructions themselves. You can use both `ROP` and all `RET2` bypasses.
-- ASLR
-  - ASLR fully randomizes the stack and heap memory. Reaching the `RIP` will be impossible, because register addresses will be random after every execution. It is a OS security measure rather than a binary one. You can check if it's enabled for your OS by looking if the file `/proc/sys/kernel/randomize_va_space` has a value of `2`.
-  - Not all memory is fully randomized, however. The addresses of the actual binary components, for example, are still "weakly" randomized (and only if you compiled with `PIE` enabled in `gcc`!), this means they are all _**at the same offset from a "base" random address**_.
-  - This is also true for addresses of library functions, for example the native `LIBC` library where the `gets()` and `puts()` functions live. You can abuse this "weak" randomization to reach dangerous functions and execute arbitrary code, these bypasses are called `RET2LIBC`, `RET2GOT`, and `RET2PLT`.
 - CANARY
   - A canary is a random address put on the stack, that gets checked prior to a `ret` instruction. If it gets modified (for example during a overflow) the whole execution of the program stops.
   - On linux systems, canaries always end in a null-byte `\x00`, which makes them more guessable, and sometimes you can leak their values through another vulnerability in the code, normally a `STRING FORMAT` or memory leaks of another kind.
+- ASLR
+  - ASLR fully randomizes the stack and heap memory. Reaching the `RIP` will be impossible, because register addresses will be random after every execution. It is actually a OS security measure, as such, you can first try to exploit the binary without it, and then re-enable it to try and bypass ASLR too. 
+  - By default, `gdb` will make you debug every binary without ASLR. For the extra bypass challenge, you can enable ASLR with `set disable-randomization off`.
+  - Not all memory is fully randomized by ASLR. The addresses of the actual binary components, like library functions, are still "weakly" randomized (and only if you compiled with `PIE` enabled in `gcc`!), this means they are all _**at the same offset from a "base" random address**_. You can abuse this "weak" randomization to reach dangerous functions and execute arbitrary code, these bypasses are called `RET2LIBC`, `RET2GOT`, and `RET2PLT`.
 - RELRO
-  - There are two versions, the "Full RELRO" will resolve every `LIBC` function address at the beginning of execution, saving those addresses in a read-only table called `GOT`. 
-  - The `GOT` actually contains a sub-section called `PLT`. This section contains the code that is responsible to actually find the `LIBC` function address and saving that in the `GOT` table. "Full RELRO" makes `RET2GOT` and `RET2PLT` attacks impossible, as you lose write permission in the `GOT`.
-  - The "Partial RELRO" is still the default `gcc` option, and allows both bypasses to be used. `LIBC` function addresses are resolved dynamically during execution (each time they will have different addresses) and `PLT` calls are made the first time such a function is encountered. The `GOT` remains writable, and has a static address.
+  - There are two versions, "Full" and "Partial" (which is the default in the latest `gcc`)
+  - "Full RELRO" will resolve every library function address at the beginning of execution, saving those addresses in a read-only table called `GOT`. This table contains a sub-section called `PLT`, that is responsible to actually find the function address and saving it in `GOT`. "Full RELRO" makes `RET2GOT` and `RET2PLT` attacks impossible, as you lose write permission in both regions.
+  - "Partial RELRO" is not a problem and allows both bypasses to be used. Library function addresses are resolved dynamically and `PLT` calls are made the first time a function is encountered. Both `GOT` and `PLT` sections remain writable.
