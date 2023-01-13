@@ -13,14 +13,18 @@ This scenario is known as "stack overflow", to prove that it's possible, you onl
 
 As the `RBP` is 8 bytes below the `RIP`, we will first find the input length to reach the `RBP`, also called "offset", then add 16 bytes to reach the `RIP`, and finally write an arbitrary canonical address there.\
 \
-How do we find the input length to arrive at the `RBP`? The answer is "De Brujin" sequences, a never-repeating pattern of byte chunks that `gdb` can generate for you. The length you choose doesn't matter as long as it overflows the stack, because once the `RBP` is overwritten with a portion of this string, we will know exactly where that value is in the sequence (as it never repeats more than once), thus we'll get the amount of bytes we need to reach the `RBP` register, and we win.
+How do we find the input length to arrive at the `RBP`? The answer is "De Brujin" sequences, a never-repeating pattern of byte chunks that `gdb` can generate for you. The length you choose doesn't matter as long as it overflows the stack.\
+\
+Once the `RBP` is overwritten with a portion of this string, we will know exactly where that value is in the sequence (as it never repeats more than once), thus we'll get the amount of bytes we need to reach the `RBP` register, and we can perform the attack.
 
 ## Security Flags
 
-There are various protections that make the exploitation of a stack overflow more difficult:
+There are various protections that make the exploitation of a stack overflow more difficult, i am going to briefly discuss what they do and how to bypass them:
 
 - NX Bit
-  - Marks the stack as non-executable. You can overwrite the `RIP`, but the code you place on the stack will not get executed by the binary.
+  - Marks the stack as non-executable. You can overwrite the `RIP`, but if you directly place code on the stack it will not be executed. 
+  - As you can still overwrite the `RIP`, you have full control over the execution flow of the binary, what if you can generate arbitrary code by re-using the binary instructions themselves? This is called `ROP-oriented` bypass.
 - ASLR & PIE
-  - ASLR Randomizes the stack and heap memory. Reaching the `RIP` or any other addresses there will be difficult, because they will change after every execution. It depends on the OS, you can check if it's enabled with the command: `cat /proc/sys/kernel/randomize_va_space`, if the output is `2` then ASLR is enabled on your OS.
-  - PIE is an additional security measure that only works if ASLR is on. It randomizes addresses found in the binary region. These addresses are outside the stack, and are used to call standard libraries, like `LIBC`, that contains the `gets()` and `puts()`  functions, for example.
+  - ASLR Randomizes the stack and heap memory. Reaching the `RIP` or any other addresses there will be difficult, because they will be random after every execution. ASLR is actually a OS security measure, you can check if it's enabled with the command: `cat /proc/sys/kernel/randomize_va_space`, if the output is `2` then ASLR is enabled on your OS.
+  - PIE is an additional security measure that only works if ASLR is on. At execution, it generates a random "base" address, then shifts every other address by an offset with respect to this "base". The addresses that PIE target are outside the stack/heap, and are reserved to call C standard libraries, like `LIBC`, that contains the `gets()` and `puts()`  functions, for example.
+  - If only ASLR is enabled, the library region is not randomized, what if you reach dangerous functions in `LIBC` and use them to execute code?  This is called `RET2LIBC` bypass.
