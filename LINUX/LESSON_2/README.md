@@ -8,9 +8,7 @@ As the input string is "overflowing" in the stack, if the string is long enough 
 \
 Knowing that the `RBP` is 8 bytes below the `RIP`, the strategy is to first find the string length to reach the `RBP` (also called "offset length"), add 16 bytes to reach the `RIP`, and finally write an arbitrary canonical 48-bit address there.\
 \
-How do we find the input length to arrive at the `RBP`? The answer is "De Brujin" sequences, a never-repeating pattern of byte chunks that `gdb` can generate for you. The length you choose doesn't matter as long as it overflows the stack.\
-\
-Once the `RBP` is overwritten with a portion of this string, we will know exactly where that value is in the sequence (as it never repeats more than once), thus we'll get the amount of bytes we need to reach the `RBP` register, and we can perform the attack.
+How do we find the input length to arrive at the `RBP`? The answer is simple, we overwrite it with a non-repeating string of several chunks that `gdb` can generate for us, once the `RBP` is overwritten with a portion of this string, we will know exactly how many input bytes we need and we can perform the attack.
 
 ## Security Measures
 
