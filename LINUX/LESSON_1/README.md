@@ -37,7 +37,7 @@ To handle the data from the RAM, the CPU uses "registers", which are "hardware" 
 
 ## Assembly Instructions
 
-In the following, the word "object" will be used as an alias for "address", "value" or "register". Each assembly instruction can take at most 2 arguments, the most important ones, responsible for function handling and the common operations, are:
+In the following, the word "object" will be used as an alias for "address", "value" or "register". Each assembly instruction can take at most 2 arguments, the most important ones are:
 - `mov    [object_1] [object_2]`
   - In `gbd` notation, this moves the **value** contained in "object_2" into "object_1"
 - `lea    [object_1] [object_2]`
