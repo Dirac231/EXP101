@@ -10,9 +10,9 @@ Think about how dangerous this is, you can now write any value you want in the s
 \
 Well, the `RIP` points to the next instruction to be executed, so if you can write an arbitrary address there, you can make the binary execute arbitrary code on the system!\
 \
-This scenario is known as "stack overflow", to prove that it's possible, you only need to do two things:
+This scenario is known as "stack overflow", to prove that it's possible, you only need two things:
 - Overwrite the `RIP` with an arbitrary address.
-- Prove that you can execute arbitrary code, by choosing the right address.
+- Prove that you can execute arbitrary code.
 
 If you remember, in the `RIP`, only "canonical" 48-bit addresses are accepted, but this is not true for the `RBP`.\
 \
