@@ -22,7 +22,7 @@ int main(int argc, char** argv){
 - From `gdb`, run the command `disas main` to get the assembly code for the `main()` function.
   - Find the instruction that allocates the variable `n`, notice how `DWORD` is used for integers.
   - Find the instruction that allocates the variable `random`, notice how `QWORD` is used for chars.
-    - Do the same for the string "random2", where is it allocated?
+    - Do the same for the string `random2`, where is it allocated?
   - The command `x/s [address]` can display the string content from an address, use it to extract the string value `"Hello"`.
     - You can specify the number of strings to display, starting from a specific address, with `x/[number]s`. Output "random" and "random2" in a single command.
     - You can subtract or add bytes from registers with `+` or `-` operators, like "x/s [adr]+100" will inspect the address at 100 bytes more than [adr].
