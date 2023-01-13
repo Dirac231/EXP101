@@ -57,10 +57,13 @@ The program takes an input from the terminal, then calls the `overflow()` functi
 - Disassemble the `overflow()` function, examine the call to `strcpy()`, where is `buf` allocated?
 - Set a "breakpoint" to the `overflow()` function, with `b overflow`, this will stop the execution once the function is reached
   - You can display all the breakpoints with `i b`
-  - You can delete a breakpoint by id with `d [id]`
-- Run the binary supplying an input with `r [your_input]`, did you hit the breakpoint? At which address?
-  - In the "x" command, instead of using "x/s" you can use the "x/bx" format, called "hex dump" format.
-    - Output the first 500 hex bytes from the top of the stack. Why can you get the output this time?
+  - You can delete a breakpoint by its "id" number with `d [id]`
+- You can run the binary with an input using `r [your_input]`, did you hit the breakpoint? At which address?
+    - Output the first 500 bytes from the top of the stack. Can you get the output this time? Why?
+    - Inspect a register of your choice with `i r [register]`, with this you could find the address of the next instruction that will execute, how?.
+    - You can inspect all registers at once with `i r`, get the values of `rbp` and `rsp` in a single shot.
   - Advance by one instruction with the `nexti` command, then continue the execution with `c`
-  - Do the same, but supply an input longer than 25 chars, what happens after `nexti`? Why?
+    - The `c` command will continue execution until any other breakpoint is hit.
+    - The `j *[address]` command will directly jump to an address of your choice, and then automatically run `c` from that point.
+  - Delete all breakpoints, and re-run the binary with an input of 50 chars, what happens after `nexti`? Why?
 
