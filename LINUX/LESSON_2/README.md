@@ -2,14 +2,22 @@
 
 At the end of "Exercise 2" in the first lesson, supplying a string of 50 characters makes the binary go in "segmentation fault".\
 \
-This error is thrown whenever a variable accesses memory which was not intended for that variable. In that case, the `buf[]` array was 25 chars long and allocated on the stack, since the length of the input is not checked anywhere, we can specify an arbitrary input length.\
+This happens because the `strcpy()` function doesn't check the length of the input by itself, and blindly allocates 50 chars in the `buf` array, which is only 25 chars long. Our string ends up in unintended memory regions, and a "segfault" error is thrown.\
 \
-A programmer might think that `strcpy()` would check the length of the input string, but he would be wrong, `strcpy()` is considered unsafe for this very reason (had he read the docs, he would have used `strncpy()` instead).\
+We say that the input string is "overflowing" the stack as that's the memory region where the error is happening.\
 \
-`strcpy()` blindly allocates 50 chars in a 25-long array, a "segfault" is received, and we say that the input string is "overflowing" the stack as that's the memory region where the error is happening.\
+Think about how dangerous this is, you can now write any value you want in the stack region, including addresses! At the point of the `strcpy()` call, you can still access CPU registers, so what if you overwrite the `RIP` register? What would happen then?\
 \
-Think about how dangerous this is for a moment, you can now write any value you want in the stack memory region, including addresses! At the point of the `strcpy()` call, you can still access CPU registers, so what if you overwrite the `RIP` register? What would happen then?\
+Well, the `RIP` points to the next instruction to be executed, so if you can write an arbitrary address there, you can make the binary execute arbitrary code on the system!\
 \
-Well, if you think about it, the `RIP` points to the next instruction to be executed, so if you can write an arbitrary address there, you can basically make the binary execute arbitrary code on the system!. This scenario is known as "stack overflow", to prove that it's possible, you only need to do two things:
+This scenario is known as "stack overflow", to prove that it's possible, you only need to do two things:
 - Overwrite the `RIP` with an arbitrary address.
 - Prove that you can execute arbitrary code, by choosing the right address.
+
+If you remember, in the `RIP`, only "canonical" 48-bit addresses are accepted, but this for example is not true for the `RBP`.\
+\
+In the memory map, the `RBP` is actually immediately below the `RIP`, so overwriting the `RBP` would be a great starting point. Once the input is long enough to reach the beginning of the `RBP`, you first write 8 bytes of junk in it, and then you are right at the beginning of the `RIP`, where only canonical addresses are accepted.\
+\
+But how do you find the right input length to arrive at the `RBP`? The answer is "De Brujin" sequences, a never-repeating pattern of 8-byte chunks. `gdb` can generate one for you with the `pattern create [length]` command, the length you choose doesn't matter as long as it overflows the stack.\
+\
+Since the string never repeats, once we overwrite the `RBP` with a portion of it, we know exactly where that value is in the sequence, thus the amount of bytes we need to reach the `RBP` register, and we have won.
