@@ -14,7 +14,7 @@ Once the `RBP` is overwritten with a portion of this string, we will know exactl
 
 ## Security Measures
 
-There are various protections that make the exploitation of a stack overflow more difficult, i am going to briefly discuss what they do and how to bypass them:
+There are various protections that make the exploitation of a stack overflow more difficult, i am going to briefly discuss what they do leaving the attack details for later, for now the important thing is to underestand the logic behind the defense and the bypass:
 
 - NX Bit
   - Marks the stack as non-executable. You can overwrite the `RIP`, but if you directly place code on the stack it will not be executed. 
