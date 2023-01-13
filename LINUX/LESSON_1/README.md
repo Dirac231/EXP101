@@ -1,7 +1,7 @@
 ## Tools Installation
-Before continuing, please use this one-line command to install the necessary tools (`gdb-peda`, `pip3` and `pwntools`):
+Before continuing, please use this one-line command to install the necessary tools (`gdb-peda`, `checksec`,`pip3` and `pwntools`):
 ```
-sudo apt install -y gdb python3 git python3-pip && git clone https://github.com/longld/peda.git ~/peda && echo "source ~/peda/peda.py" >> ~/.gdbinit && pip3 install pwntools
+sudo apt install -y checksec gdb python3 git python3-pip && git clone https://github.com/longld/peda.git ~/peda && echo "source ~/peda/peda.py" >> ~/.gdbinit && pip3 install pwntools
 ```
 
 ## Theory & Introduction
