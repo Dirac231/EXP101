@@ -14,7 +14,7 @@ When you compile a code, you can choose the target "architecture" to be 32-bit o
 - The RAM memory map.
 - The CPU registers and their size.
 
-The RAM is the "passive" component, it's where a process data is physically stored. After a binary gets executed, a "memory map" of the RAM is generated (also called "virtual address space"), for 64-bit, it consists of all hex strings from `0x0000000000000000` to `0xffffffffffffffff` called "pointers". To each of these pointers corresponds a value stored in the physical RAM, the CPU uses this "map" to read/write data from the RAM.\
+The RAM is the "passive" component, it's the actual piece of hardware where a process data is stored in 0s and 1s. After a binary gets executed, a "memory map" of the RAM is generated (also called "virtual address space"), for 64-bit, it consists of all hex strings from `0x0000000000000000` to `0xffffffffffffffff` called "pointers". To each of these pointers corresponds a value stored in the physical RAM, the CPU uses this "map" to read/write data from the RAM.\
 \
 As everything is stored in RAM, every assembly instruction of the binary also has a dedicated pointer, if this was not the case, the CPU wouldn't know what instruction to execute next.\
 \
