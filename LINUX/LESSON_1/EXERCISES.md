@@ -28,7 +28,7 @@ int main(int argc, char** argv){
     - You can subtract or add bytes from addresses with `+` or `-` operators, `x/s [adr]+100` will inspect the address at 100 bytes more than `[adr]`.
     - Instead of an address, you can also specify registers, using the "$" symbol before the name (`$esp` or `$rax+100`)
     - Instead of strings, the `x/[number]bx` format can be used to print a certain number of bytes starting from an address.
-    - Access the 500 bytes from the top of the stack, do you get a value? Why is that?
+    - Access the 500 bytes from the top of the stack, do you get a output? Why is that?
   - Find the instruction that calls the function `puts()`, where are the argument and return value stored?
   - Find the instruction that returns the value `1` from the `main()`, what register is used for this?
 
