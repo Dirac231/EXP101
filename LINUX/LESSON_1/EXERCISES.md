@@ -19,8 +19,8 @@ int main(int argc, char** argv){
 }
 ```
 - From `gdb`, run the command `disas main` to get the assembly code for the `main()` function.
-  - Find the instruction that allocates the variable `n`, notice how `DWORD` is used.
-  - Find the instruction that allocates the variable `random`, notice how `QWORD` is used. 
+  - Find the instruction that allocates the variable `n`, notice how `DWORD` is used for integers.
+  - Find the instruction that allocates the variable `random`, notice how `QWORD` is used for chars. 
   - The command `x/s [address]` can display the string content of an address, use it to extract the string value `"Hello"`.
   - Do the same using `x/bx [address]`, this is called "hex dump" output. Decode the hex output to a string, what do you get?
   - Find the instruction that calls the function `puts()`, where are the argument and return value stored?
