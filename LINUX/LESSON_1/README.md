@@ -39,8 +39,11 @@ To handle the data from the RAM, the CPU uses "registers", which are "hardware" 
 
 In the following, the word "object" will be used as an alias for "address", "value" or "register". Each assembly instruction can take at most 2 arguments, the ones responsible for function handling, and thus for handling the stack, are:
 - `pop    [object]`
+  - Removes 8 bytes from the stack top address (kept in the `rsp`) and moves those bytes in `[object]`
 - `push   [object]`
+  - Pushes `[object]` to the top of the stack (now `rsp` will point to this object address)
 - `call   [function]`
+  - Calls a function, first processes the arguments (with `rdi`, `rsi`, ...), then pushes the `return` address, then moves the function address into the `rip`. Space for local variables is reserved, by "subtracting" the `rsp`, for example `subl 0x8, $esp`
 - `jmp    [address]`
 - `ret    (this actually means "pop rip" + "jmp [return_address]")`
 
