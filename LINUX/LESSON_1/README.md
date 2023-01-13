@@ -1,5 +1,5 @@
 ## Tools Installation
-Before continuing, please use this one-line command to install the necessary tools for the first lesson:
+Before continuing, please use this one-line command to install the necessary tools (`gdb-peda`, `pip3` and `pwntools`):
 ```
 sudo apt install -Y gdb python3-pip && git clone https://github.com/longld/peda.git ~/peda && echo "source ~/peda/peda.py" >> ~/.gdbinit && pip3 install pwntools
 ```
