@@ -14,10 +14,12 @@ This scenario is known as "stack overflow", to prove that it's possible, you onl
 - Overwrite the `RIP` with an arbitrary address.
 - Prove that you can execute arbitrary code, by choosing the right address.
 
-If you remember, in the `RIP`, only "canonical" 48-bit addresses are accepted, but this for example is not true for the `RBP`.\
+If you remember, in the `RIP`, only "canonical" 48-bit addresses are accepted, but this is not true for the `RBP`.\
 \
 In the memory map, the `RBP` is actually immediately below the `RIP`, so overwriting the `RBP` would be a great starting point. Once the input is long enough to reach the beginning of the `RBP`, you first write 8 bytes of junk in it, and then you are right at the beginning of the `RIP`, where only canonical addresses are accepted.\
 \
-But how do you find the right input length to arrive at the `RBP`? The answer is "De Brujin" sequences, a never-repeating pattern of 8-byte chunks. `gdb` can generate one for you with the `pattern create [length]` command, the length you choose doesn't matter as long as it overflows the stack.\
-\
-Since the string never repeats, once we overwrite the `RBP` with a portion of it, we know exactly where that value is in the sequence, thus the amount of bytes we need to reach the `RBP` register, and we have won.
+But how do you find the right input length to arrive at the `RBP`? The answer is "De Brujin" sequences, a never-repeating pattern of 8-byte chunks. The length you choose for the sequence doesn't matter as long as it overflows the stack. Once we overwrite the `RBP` with a portion of this string, we will know exactly where that value is in the sequence because it never repeats, thus we'll get the amount of bytes we need to reach the `RBP` register, and we win.
+
+## Security Flags
+
+There are various protections that make the exploitation of a stack overflow more difficult.
