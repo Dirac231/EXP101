@@ -34,6 +34,14 @@ To handle the data from the RAM, the CPU uses "registers", which are "hardware" 
 - RBP: Used to backup the value of ESP before it changes, also known as "base pointer".
 - RDI / RSI / RDX / RCX: In order, they store the first 4 arguments of a function.
 - RIP: Used to store the pointer to the next assembly instruction. Only accepts a canonical address.
-\
-\
+
+## Assembly Instructions
+
+In the following, the word "object" will be used as an alias for "address", "value" or "register". Each assembly instruction can take at most 2 arguments, the ones responsible for function handling, and thus for handling the stack, are:
+- `pop    [object]`
+- `push   [object]`
+- `call   [function]
+- `jmp    [address]
+- `ret    (this actually means "pop rip" + "jmp [return_address]")`
+
 To complete the lesson, please complete all exercises in the corresponding `.md` file.
