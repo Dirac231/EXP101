@@ -22,4 +22,10 @@ How do we find the input length to arrive at the `RBP`? The answer is "De Brujin
 
 ## Security Flags
 
-There are various protections that make the exploitation of a stack overflow more difficult.
+There are various protections that make the exploitation of a stack overflow more difficult, each of them with up and downsides.
+
+- NX Bit
+  - Marks the stack as non-executable. You can overwrite the `RIP`, but the code you place on the stack will not get executed by the binary.
+- ASLR & PIE
+  - ASLR Randomizes the stack and heap. Reaching the `RIP` or any other address will be very difficult, because these addresses will change after every execution. It depends on the OS, you can check if it's enabled with the command: `cat /proc/sys/kernel/randomize_va_space`, if the output is `2` then ASLR is enabled on your OS.
+  - PIE is an additional security measure that only works if ASLR is on. It randomizes addresses found in the binary region. These addresses are outside the stack, and are used to call standard libraries, like `LIBC`, that contains the `gets()` and `puts()`  functions, for example.
