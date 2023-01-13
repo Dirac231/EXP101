@@ -20,7 +20,7 @@ As everything is stored in RAM, every assembly instruction of the binary also ha
 \
 The memory map is divided into "stack" and "heap".\
 \
-The stack is the region used to manage functions. When a function is called, local variables and function arguments are allocated on a "stack frame", get processed by the CPU, and when the function returns, the return value also is allocated on the stack and can be processed. After the return, the "stack frame" which was reserved for the function gets freed, and can be re-used. The execution then continues from the return address.\
+The stack is the region used to manage functions. When a function is called, local variables and function arguments are allocated on a "stack frame", get processed by the CPU. After the function returns, the "stack frame" gets freed and can be re-used. The execution then continues from the return address.\
 \
 Allocation and de-allocation from the stack happen with the "push" and "pop" instructions, which mean "add" or "remove and return" 8 bytes from the top of the stack frame. As these are the only operations you can do on the stack, it's commonly referred as "static" memory, because you have no control over where the allocation happens.\
 \
