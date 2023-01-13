@@ -12,7 +12,7 @@ How do we find the input length to arrive at the `RBP`? The answer is "De Brujin
 \
 Once the `RBP` is overwritten with a portion of this string, we will know exactly where that value is in the sequence (as it never repeats more than once), thus we'll get the amount of bytes we need to reach the `RBP` register, and we can perform the attack.
 
-## Security Flags
+## Security Measures
 
 There are various protections that make the exploitation of a stack overflow more difficult, i am going to briefly discuss what they do and how to bypass them:
 
