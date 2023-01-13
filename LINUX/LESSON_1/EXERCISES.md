@@ -22,7 +22,9 @@ int main(int argc, char** argv){
   - Find the instruction that allocates the variable `n`, notice how `DWORD` is used for integers.
   - Find the instruction that allocates the variable `random`, notice how `QWORD` is used for chars. 
   - The command `x/s [address]` can display the string content of an address, use it to extract the string value `"Hello"`.
-  - Do the same using `x/bx [address]`, this is called "hex dump" output. Decode the hex output to a string, what do you get?
+    - You can subtract or add addresses together, as well as bytes from addresses.
+    - Instead of an address, you can also reference registers, using the "$" symbol and the name (`x/s $esp`)
+  - The "bx" format, with `x/bx [address]`, is called "hex dump" output. Output the first 500 bytes from the top of the stack.
   - Find the instruction that calls the function `puts()`, where are the argument and return value stored?
   - Find the instruction that returns the value `1` from the `main()`, what register is used for this?
 
