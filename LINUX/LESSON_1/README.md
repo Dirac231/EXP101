@@ -8,7 +8,7 @@ sudo apt install -y gdb python3 git python3-pip && wget -O ~/.gdbinit-gef.py -q 
 
 A "binary" is the compiled version of a code, written in a programming language.\
 \
-The code is translated via the "compiler" in a sequence of CPU instructions known as "assembly", each instruction corresponding to an elementary CPU operation.\
+The code is translated via the "compiler" in a sequence of CPU instructions known as "assembly code", each instruction corresponding to an elementary CPU operation.\
 \
 When you compile a code, you can choose the target "architecture" to be 32-bit or 64-bit. The assembly code you get will be slightly different, this is because the architecture decides two things:
 - The RAM memory map.
@@ -16,17 +16,19 @@ When you compile a code, you can choose the target "architecture" to be 32-bit o
 
 The RAM is the "passive" component, it's the actual piece of hardware where a process data is stored in 0s and 1s. After a binary gets executed, a "memory map" of the RAM is generated (also called "virtual address space"), for 64-bit, it consists of all hex strings from `0x0000000000000000` to `0xffffffffffffffff` called "pointers". To each of these pointers corresponds a value stored in the physical RAM, the CPU uses this "map" to read/write data from the RAM.\
 \
-As everything is stored in RAM, every assembly instruction of the binary also has a dedicated pointer, if this was not the case, the CPU wouldn't know what instruction to execute next.\
+Contary to 32-bit, not all the (2^64) addresses are utilized for memory mapping. Only "canonical" addresses are used, that is the range `0x0000000000000000` to `0x00007FFFFFFFFFFF` and `0xFFFF800000000000` to `0xFFFFFFFFFFFFFFFF`. Any address outside this range is non-canonical, notice how they are 48-bits long.\
 \
-The memory map is divided into "stack" and "heap".\
+As everything is stored in RAM, an assembly instruction itself also has a dedicated pointer, if this was not the case, the CPU wouldn't know what instruction to execute next.\
 \
-The stack is the region used to manage functions. When a function is called, local variables and function arguments are allocated on a "stack frame", get processed by the CPU. After the function returns, the "stack frame" gets freed and can be re-used. The execution then continues from the return address.\
+The memory map is divided into "stack", "heap". These areas are further divided into "binary segments", this concept is important because the binary segments get treated different by some security measures, and are the starting point for some of the advanced attacks.\
 \
-Allocation and de-allocation from the stack happen with the "push" and "pop" instructions, which mean "add" or "remove and return" 8 bytes from the top of the stack frame. As these are the only operations you can do on the stack, it's commonly referred as "static" memory, because you have no control over where the allocation happens.\
+The stack is the region used to manage functions. Local variables, arguments, return values, and the return address itself are all stored in "stack frame" when a function is called. Allocation and de-allocation from the stack happen with the "push" and "pop" instructions, which mean "add" or "remove and return" 8 bytes from the top of the stack frame. As these are the only operations you can do, it's commonly referred as "static" memory, because you have no control over where the allocation happens.\
 \
 The "heap" is the region used for every other kind of memory management, it's dynamic, meaning that you can allocate, extend, shrink, de-allocate memory for multiple kinds of data, and static/global variables are here.\
 \
-Contary to 32-bit, not all the (2^64) addresses are utilized for memory mapping. Only "canonical" addresses are used, that is the range `0x0000000000000000` to `0x00007FFFFFFFFFFF` and `0xFFFF800000000000` to `0xFFFFFFFFFFFFFFFF`. Any address outside this range is non-canonical, notice how the canonical ranges are 48-bits long.\
+The "binary segments" are special memory regions each containing a particular data type or operation. The most important ones being the `GOT` table, the `PLT`, and the `SO` local files. The `SO` files contain the code for the extra library functions, like the native `gets()` or `puts()`. One example is `/lib/i386-linux-gnu/libc-2.27.so` found in your linux system.\
+\
+The binary always knows where these functions are, even if you don't declare them, thanks to the "linker", a small piece of code found in the `PLT` section, that actually looks for the native functions in these files. Once found, their addresses get all saved in the `GOT` table, and when the binary needs to call them at some point, it finds the right address in the `GOT`. We say that the `PLT` "links" the `SO` to the binary, through the `GOT` table.\
 \
 To handle the data from the RAM, the CPU uses "registers", which are "hardware" 64-bit addresses (therefore NOT located in RAM), that the CPU uses for specific purposes. The most important ones are:
 - RAX: Used to store the return value of functions, and perform temporary operations.
