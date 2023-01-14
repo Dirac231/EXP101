@@ -59,11 +59,11 @@ The program takes an input from the terminal, then calls the `overflow()` functi
   - You can display all the breakpoints with `i b`
   - You can delete a breakpoint by its "id" number with `d [id]`
 - Run the binary with an input shorter than 25 chars, by using `r [your_input]`, did you hit the `strcpy()` function?
-    - Output the first 500 bytes from the top of the stack. Using the `x/[number]bx` command.
-    - Inspect the registers with `i r`, find the address of the stack top, and of the next instruction that will execute.
+    - Output the first 500 bytes from the top of the stack.
+    - Inspect the registers with `i r`, find the address of the next instruction.
   - Advance by one instruction with the `nexti` command, then continue the execution with `c`
     - The `c` command will continue execution until any other breakpoint is hit.
     - The `j *[address]` command will jump to an address of your choice, and then automatically run `c` from that point.
   - Restart the binary and reset the `strcpy()` breakpoint, run the binary with a input of 200 chars. What happens?
-  - Inspect the `RBP` register after the crash, what is its value? Why?
+  - Inspect the `RBP` register after the crash, what is its value?
 
