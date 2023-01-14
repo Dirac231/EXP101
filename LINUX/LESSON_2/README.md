@@ -1,14 +1,14 @@
 ## Stack Overflows
 
-At the end of "Exercise 2" in the first lesson, supplying a string of 50 characters makes the binary go in "segmentation fault".\
+At the end of "Exercise 2" in the first lesson, supplying a string of 200 characters makes the binary go in "segmentation fault".\
 \
-This happens because the `strcpy()` function doesn't check the length of the input by itself, and blindly allocates 50 chars in the `buf` array, which is only 25 chars long. Our string ends up in unintended memory regions, and a "segfault" error is thrown.\
+This happens because the `strcpy()` function doesn't check the length of the input by itself, and blindly allocates 200 chars in the `buf` array, which is only 25 chars long. Our string ends up in unintended memory regions, and a "segfault" error is thrown.\
 \
-As the input string is "overflowing" in the stack, if the string is long enough you could write an arbitrary address in the `RIP` register, and make the binary execute any instruction you want. This is a "stack overflow" vulnerability.\
+If the input string is long enough, as you've seen, the `RBP` register gets overwritten with it. Since the beginning of the `RBP` is always 16 bytes before the `RIP` address, once we overwrite it with 8 bytes of junk data, we are at the right position in memory to write a canonical 48-bit address in the `RIP`.\
 \
-To exploit it, we will first find the string length (called "offset") to reach the beginning of the `RBP` register. This is because the `RBP` is always 16 bytes before the `RIP`. Once we overwrite the `RBP` with 8 bytes of junk data, we are at the right position in memory to write a canonical 48-bit address in the `RIP`.\
+As the `RIP` holds the value of the next instruction to be executed, being able to do this means to execute arbitrary code on the system. This is called a "stack overflow" vulnerability. To exploit it, we only need to find the right string length (called "offset") to reach the beginning of the `RBP`.
 \
-To find the offset, we will overwrite the `RBP` with a non-repeating string of several chunks that `gdb` can generate for us.\
+To find this value, we will overwrite the `RBP` with a non-repeating string of several chunks that `gdb` can generate for us.\
 \
 Once the `RBP` is overwritten with a portion of this string, we know for sure that this specific portion is unique in the original string, so we can get its exact position in it. This position expressed in amount of bytes is exactly the offset value.
 
