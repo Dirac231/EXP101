@@ -55,16 +55,15 @@ The program takes an input from the terminal, then calls the `overflow()` functi
 
 - Disassemble the `main()` function, how do you know that `argv[1]` is passed to `overflow()`?
 - Disassemble the `fault()` function, examine the call to `strcpy()`, where is `buf` allocated?
-- Set a "breakpoint" to the `fault()` function, with `b overflow`, this will stop the execution once the function is reached
+- Set a "breakpoint" to the `strcpy()` function, with `b strcpy`, this will stop the execution once the function is reached
   - You can display all the breakpoints with `i b`
   - You can delete a breakpoint by its "id" number with `d [id]`
-- You can run the binary with an input using `r [your_input]`, did you hit the breakpoint?
+- Run the binary with an input shorter than 25 chars, by using `r [your_input]`, did you hit the `strcpy()` function?
     - Output the first 500 bytes from the top of the stack. Using the `x/[number]bx` command.
-    - Inspect a register of your choice with `i r [register]`, find the address of the next instruction that will execute.
-    - You can inspect all registers at once with `i r`, get the values of `rbp` and `rsp` in a single shot.
+    - Inspect the registers with `i r`, find the address of the stack top, and of the next instruction that will execute.
   - Advance by one instruction with the `nexti` command, then continue the execution with `c`
     - The `c` command will continue execution until any other breakpoint is hit.
     - The `j *[address]` command will jump to an address of your choice, and then automatically run `c` from that point.
-  - Delete all breakpoints, and re-run the binary with an input of 200 chars, what happens after `nexti`?
-  - Inspect the `RBP` register after the crash, what is the value? Why?
+  - Restart the binary and reset the `strcpy()` breakpoint, run the binary with a input of 200 chars. What happens?
+  - Inspect the `RBP` register after the crash, what is its value? Why?
 
