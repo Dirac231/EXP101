@@ -34,7 +34,7 @@ After this whole process, the `SO` file is part of the binary memory, saved in t
 
 ## Registers & Assembly
 
-To handle the RAM address space, the CPU uses "registers", which are "hardware" 64-bit addresses (therefore not in RAM), that the CPU uses for specific purposes. The important ones are:
+To handle the RAM address space, the CPU uses "registers", which are hardware 64-bit addresses (therefore NOT in RAM), that the CPU uses for specific purposes, for example to copy values from the memory map, and perform operations on it. The important ones are:
 - RAX: Used to store the return value of functions, and perform temporary operations.
 - RSP: Used to store the pointer to the top of the stack.
 - RBP: Used to backup the value of ESP before it changes, also known as "base pointer".
