@@ -59,4 +59,4 @@ The code is compiled into assembly instructions, each taking at most 2 arguments
 - `ret`    
   - Does a `pop rip` followed by a `jmp [return_address]`, at the end of a function call.
 
-Exercises are in the corresponding `.md` file.
+It is strongly recommended to complete the exercises in `EXERCISES.md` before moving on.
