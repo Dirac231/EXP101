@@ -14,9 +14,9 @@ When you compile a code, you can choose the target "architecture" to be 32-bit o
 - The RAM memory map.
 - The CPU registers and their size.
 
-The RAM is the actual piece of hardware where a process data is stored in 0s and 1s. After a binary gets executed, a "memory map" of the RAM is generated (also called "virtual address space"). For 64-bit, it consists of all hex strings from `0x0000000000000000` to `0xFFFFFFFFFFFFFFFF` called "pointers". To each of these pointers corresponds a value stored in the physical RAM, the CPU uses this "map" to read/write data from the RAM.\
+The RAM is the actual piece of hardware where a process data is stored in 0s and 1s. After a binary gets executed, a "memory map" of the RAM is generated (also called "virtual address space"). For 64-bit, it consists of all hex strings from `0x0000000000000000` to `0xFFFFFFFFFFFFFFFF` called "pointers". To each of these pointers corresponds a value stored in the physical RAM, and the CPU uses this "map" to read/write data from the RAM.\
 \
-Contary to 32-bit, not all the (2^64) addresses are utilized for memory mapping. Only "canonical" addresses are used, that is the range `0x0000000000000000` to `0x00007FFFFFFFFFFF` and `0xFFFF800000000000` to `0xFFFFFFFFFFFFFFFF`. Any address outside this range is non-canonical, notice how they are 48-bits long.\
+Contrary to 32-bit, not all the (2^64) addresses are utilized for memory mapping. Only "canonical" addresses are used, that is the range `0x0000000000000000` to `0x00007FFFFFFFFFFF` and `0xFFFF800000000000` to `0xFFFFFFFFFFFFFFFF`. Any address outside this range is non-canonical, notice how they are 48-bits long.\
 \
 As everything is stored in RAM, an assembly instruction itself also has a dedicated pointer, if this was not the case, the CPU wouldn't know what instruction to execute next.\
 \
@@ -28,7 +28,9 @@ The "heap" is the region used for every other kind of memory management, it's dy
 \
 The "binary segments" are sub-regions containing the binary components. The important ones are the `GOT` table, the `PLT`, and the `SO` local files. The `SO` files contain the code for the extra library functions, like the native `gets()` or `puts()`. One example is `/lib/i386-linux-gnu/libc-2.27.so` found in your linux system.\
 \
-The binary knows where native functions are, even if you don't declare them, thanks to the "linker", a small piece of code found in the `PLT` section that looks for these functions in the `SO` files. Once found, the corresponding address is saved in the `GOT` table. When the binary needs to call `gets()`, it looks this `GOT` table to find the correct address. After this whole process, it's like the `SO` file is part of the binary memory, and saved in the `GOT` section, this is why we use the word "linker".\
+The binary knows where native functions are, even if you don't declare them, thanks to the "linker", a small piece of code found in the `PLT` section that looks for these functions in the `SO` files. Once found, the corresponding address is saved in the `GOT` table. When the binary needs to call `gets()`, it looks this `GOT` table to find the correct address.\
+\
+After this whole process, the `SO` file is part of the binary memory, saved in the `GOT` section, this is why we use the word "linker".
 
 ## Registers & Assembly
 
