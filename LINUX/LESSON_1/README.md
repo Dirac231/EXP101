@@ -22,13 +22,13 @@ As everything is stored in RAM, an assembly instruction itself also has a dedica
 \
 The memory map is divided into "stack", "heap". These areas are further divided into "binary segments", this concept is important because the binary segments get treated different by some security measures, and are the starting point for some of the advanced attacks.\
 \
-The stack is the region used to manage functions. Local variables, arguments, return values, and the return address itself are all stored in "stack frame" when a function is called. Allocation and de-allocation from the stack happen with the "push" and "pop" instructions, which mean "add" or "remove and return" 8 bytes from the top of the stack frame. As these are the only operations you can do, it's commonly referred as "static" memory, because you have no control over where the allocation happens.\
+The stack is the region used to manage functions. Local variables, arguments, return values, return addresses are all stored in a "stack frame" when a function is called. The CPU can only perform two operations on the stack, the "push" and "pop" instructions, which mean "add" or "remove" 8 bytes from the top. For this reason, the stack is called "static" memory, because you have no control over where the allocation happens.\
 \
 The "heap" is the region used for every other kind of memory management, it's dynamic, meaning that you can allocate, extend, shrink, de-allocate memory for multiple kinds of data, and static/global variables are here.\
 \
 The "binary segments" are special memory regions each containing a particular data type or operation. The most important ones being the `GOT` table, the `PLT`, and the `SO` local files. The `SO` files contain the code for the extra library functions, like the native `gets()` or `puts()`. One example is `/lib/i386-linux-gnu/libc-2.27.so` found in your linux system.\
 \
-The binary always knows where these functions are, even if you don't declare them, thanks to the "linker", a small piece of code found in the `PLT` section, that actually looks for the native functions in these files. Once found, their addresses get all saved in the `GOT` table, and when the binary needs to call them at some point, it finds the right address in the `GOT`. We say that the `PLT` "links" the `SO` to the binary, through the `GOT` table.\
+The binary knows where native functions are, even if you don't declare them, thanks to the "linker", a small piece of code found in the `PLT` section that looks for these functions in the `SO` files. Once found, the corresponding address is saved in the `GOT` table. When the binary needs to call `gets()`, it finds the correct address in the `GOT`. This is why the word "linker" is used. After this whole process, it's like the `SO` file is part of the binary memory, and saved in the `GOT` section.
 \
 To handle the data from the RAM, the CPU uses "registers", which are "hardware" 64-bit addresses (therefore NOT located in RAM), that the CPU uses for specific purposes. The most important ones are:
 - RAX: Used to store the return value of functions, and perform temporary operations.
