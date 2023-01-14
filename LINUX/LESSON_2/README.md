@@ -10,7 +10,7 @@ To exploit it, we will first find the string length (called "offset") to reach t
 \
 To find the offset, we will overwrite the `RBP` with a non-repeating string of several chunks that `gdb` can generate for us.\
 \
-Once the `RBP` is overwritten with a portion of this string, we know for sure that this portion never repeats, so it must be at a fixed position in the original string. This position expressed in amount of bytes is exactly the offset value.
+Once the `RBP` is overwritten with a portion of this string, we know for sure that this specific portion is unique in the original string, so we can get its exact position in it. This position expressed in amount of bytes is exactly the offset value.
 
 ## Security Measures
 
