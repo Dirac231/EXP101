@@ -53,7 +53,7 @@ int main(int argc, char** argv){
 ```
 The program takes an input from the terminal, then calls the `overflow()` function on it, storing the input in the `buf` array.
 
-- Disassemble the `main()` function, how do you know that `argv[1]` is passed to `overflow()`?
+- Disassemble the `main()` function, how do you know that `argv[1]` is passed to `fault()`?
 - Disassemble the `fault()` function, examine the call to `strcpy()`, where is `buf` allocated?
 - Set a "breakpoint" to the `strcpy()` function, with `b strcpy`, this will stop the execution once the function is reached
   - You can display all the breakpoints with `i b`
