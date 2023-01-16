@@ -21,12 +21,12 @@ There are various protections that make the exploitation of a stack overflow mor
   - NX is not really a security measure. Since you can still overwrite the `RIP`, you have full control over the execution flow of the binary, so you can still execute arbitrary code by re-using native binary functions. 
   - For reference, this idea of re-using binary functions is called `ROP` bypass, it's a larger class of bypasses that include all the `RET2` bypasses.
 - CANARY
-  - A canary is a random address put on the stack, that gets checked prior to a `ret` instruction. If it gets modified (for example during a overflow) the whole execution of the program stops.
+  - A canary is a random address put on the stack, that gets checked prior to any function return in the code. If it gets modified (for example during a overflow) the whole execution of the program stops.
   - The only way to bypass a canary, is to leak their values through another vulnerability in the code, like a `format string` injection leak which we are going to talk about later on.
 - ASLR
   - ASLR fully randomizes the stack and heap memory. Reaching the `RIP` will be impossible, because register addresses will be random after every execution. It is actually a OS security measure, as such, you can first try to exploit the binary without it, and then re-enable it to try and bypass ASLR too. 
   - By default, `gdb` will make you debug every binary without ASLR. For the extra bypass challenge, you can enable ASLR with `set disable-randomization off`.
-  - Not all memory is fully randomized by ASLR. The addresses of binary components and library functions are still "weakly" randomized, at worst they are all _**at the same offset from a "base" random address**_. You can abuse this "weak" randomization to reach dangerous functions and execute arbitrary code, these bypasses are called `RET2LIBC`, `RET2GOT`, and `RET2PLT`.
+  - Not all memory is fully randomized by ASLR. The addresses of binary components and library functions are still "weakly" randomized, at worst they are all _**at the same offset from a "base" random address**_. You can abuse this "weak" randomization to reach dangerous functions and execute arbitrary code, much like bypassing a canary, leaking the "base" random address bypasses ASLR. Once you have this address you are back in the `ROP` and `RET2` bypasses territory.
 - RELRO
   - There are two versions, "Full" and "Partial" (which is the default in the latest `gcc`)
   - "Full RELRO" will resolve every library function address at the beginning of execution, and makes the `GOT` table read-only. This makes `RET2GOT` and `RET2PLT` attacks impossible, as you lose write permission in both regions.
