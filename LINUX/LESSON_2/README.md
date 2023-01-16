@@ -22,7 +22,7 @@ There are various protections that make the exploitation of a stack overflow mor
   - For reference, this idea of re-using binary functions is called `ROP` bypass, it's a larger class of bypasses that include all the `RET2` bypasses.
 - CANARY
   - A canary is a random address put on the stack, that gets checked prior to any function return in the code. If it gets modified (for example during a overflow) the whole execution of the program stops.
-  - The only way to bypass a canary, is to leak their values through another vulnerability in the code, like a `format string` injection leak which we are going to talk about later on.
+  - The only way to bypass a canary, is to leak their values through another vulnerability in the code, like a `format string` memory leak, which we are going to talk about extensively.
 - ASLR
   - ASLR fully randomizes the stack and heap memory. Reaching the `RIP` will be impossible, because register addresses will be random after every execution. It is actually a OS security measure, as such, you can first try to exploit the binary without it, and then re-enable it to try and bypass ASLR too. 
   - By default, `gdb` will make you debug every binary without ASLR. For the extra bypass challenge, you can enable ASLR with `set disable-randomization off`.
