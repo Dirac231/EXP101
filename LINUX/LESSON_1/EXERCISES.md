@@ -19,7 +19,7 @@ int main(int argc, char** argv){
 }
 ```
 - Before starting `gdb`, check the binary with the command `file [binary]`, can you see the architecture?
-- Check the loaded library functions with the command `ldd [binary]`, what is the address of `libc.so.6`?
+- Check the loaded library functions with the command `ldd [binary]`, what is the address of `libc.so`?
 - Start debugging with `gdb [binary]`, then run `disas main` to get the assembly code for the `main()` function.
   - Find the allocation of the variable `n`, notice how `DWORD` is used for integers.
   - Find the allocation of the variables `random` and `random2`, notice how `QWORD` is used for chars.
