@@ -22,13 +22,13 @@ As everything is stored in RAM, an assembly instruction itself also has a dedica
 \
 The memory map is divided into "stack" and "heap". These areas are further divided into sub-regions called "binary segments", this concept is important because the binary segments get treated differently by some security measures, and are the starting point for some of the advanced attacks.\
 \
-The stack is the region used to manage functions. Local variables, arguments, return values, return addresses are all stored in a "stack frame" when a function is called. The CPU can only perform two operations on the stack, the "push" and "pop" instructions, which mean "add" or "remove" 8 bytes from the top. For this reason, the stack is called "static" memory, because you have no control over where the allocation happens.\
+The stack is the region used to manage functions. Local variables, arguments, return values, return addresses are all stored in a "stack frame" when a function is called. The CPU can only perform two operations on the stack, the "push" and "pop" instructions, which mean "add" or "remove" 8 bytes from the top address. For this reason, the stack is called "static" memory, because you have no control over where the allocation happens.\
 \
 The "heap" is the region used for every other kind of memory management, it's dynamic, meaning that you can allocate, extend, shrink, de-allocate memory for multiple kinds of data, and static/global variables are here.\
 \
-The "binary segments" are sub-regions containing the binary components. The important ones are the `GOT` table, the `PLT`, and the `SO` local files. The `SO` files contain the code for the extra library functions, like the native `gets()` or `puts()`. One example is `/lib/i386-linux-gnu/libc-2.27.so` found in your linux system.\
+The "binary segments" are the sub-regions of the stack and heap containing the variables and functions used by the binary. The important ones are the `GOT` table, the `PLT`, and the `SO` local files. The `SO` files contain the code for the extra library functions, like the native functions `gets()` or `puts()`. One example is `/lib/i386-linux-gnu/libc-2.27.so` found in your linux system.\
 \
-The binary knows where native functions are, even if you don't declare them, thanks to the "linker", a small piece of code found in the `PLT` section that looks for these functions in the `SO` files. Once found, the corresponding address is saved in the `GOT` table. When the binary needs to call `gets()`, it looks this `GOT` table to find the correct address.\
+Even if you don't declare them, the binary always knows where native functions are, thanks to the "linker", a small piece of code found in the `PLT` section that looks for these functions in the `SO` files. Once found, the corresponding address is saved in the `GOT` table. When the binary needs to call `gets()`, it searches the `GOT` table to find the correct address.\
 \
 After this whole process, the `SO` file is part of the binary memory, saved in the `GOT` section, this is why we use the word "linker".
 
