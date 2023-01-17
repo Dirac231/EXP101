@@ -4,7 +4,7 @@ At the end of "Exercise 2" in the first lesson, supplying a string of 200 charac
 \
 This happens because the `strcpy()` function doesn't check the length of the input by itself, and blindly allocates 200 chars in the `buf` array, which is only 25 chars long. Our string ends up in unintended memory regions, and a "segfault" error is thrown.\
 \
-If the input string is long enough, as you've seen, the `RBP` register gets overwritten with it. Since the beginning of the `RBP` is always 16 bytes before the `RIP` address, once we overwrite it with 8 bytes of junk data, we are at the right position in memory to write a canonical 48-bit address in the `RIP`.\
+If the input string is long enough, as you've seen, the `RBP` register gets overwritten with it. Since the beginning of the `RBP` is always 8 bytes before the `RIP` address, if we overwrite those 8 bytes with junk data, we are at the right position in memory to write a canonical 48-bit address in the `RIP`.\
 \
 As the `RIP` holds the value of the next instruction to be executed, being able to do this means to execute arbitrary code on the system. This is called a "stack overflow" vulnerability. To exploit it, we only need to find the right string length (called "offset") to reach the beginning of the `RBP`.\
 \
