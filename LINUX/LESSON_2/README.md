@@ -16,17 +16,16 @@ Once the `RBP` is overwritten with a portion of this string, we know for sure th
 
 There are various protections that make the exploitation of a stack overflow more difficult, i am going to briefly discuss what they do leaving the attack details for later, for now the important thing is to underestand the logic behind the defense and the bypass:
 
-- NX Bit
+- NX
   - Marks the stack as non-executable. You can overwrite the `RIP`, but if you directly place instructions on the stack they will not get executed. 
-  - NX is not a security measure, because overwriting the `RIP` still grants you control over the execution flow of the binary. Instead of placing extra code on the stack, you can simply re-use native binary functions to achieve code execution. This idea is called `ROP` bypass, it's a larger class of bypasses that include all the `RET2` bypasses.
+  - NX is not really a security measure, overwriting the `RIP` still grants you control over the execution flow of the binary. Instead of placing extra code on the stack, you can simply re-use native functions to achieve code execution. This idea is called `ROP` bypass, it's a larger class of bypasses that include all the `RET2` bypasses.
 - CANARY
   - A canary is a random address put on the stack, that gets checked prior to any function return in the code. If it gets modified (for example during a overflow) the whole execution of the program stops.
-  - The only way to bypass a canary, is to leak their values through another vulnerability in the code, like a `format string` memory leak, which we are going to talk about extensively.
-- ASLR
-  - ASLR fully randomizes the stack and heap memory. Reaching the `RIP` will be impossible, because register addresses will be random after every execution. It is actually a OS security measure, as such, you can first try to exploit the binary without it, and then enable it again, to see if a bypass is possible. 
-  - To disable ASLR in your system, run `echo 0 | sudo tee /proc/sys/kernel/randomize_va_space`. By default, `gdb` will not display the effect of ASLR, to enable it run: `set disable-randomization off`.
-  - Not all memory is fully randomized by ASLR. The `SO` sections are still "weakly" randomized, this means that library functions will be all _**at the same offset from a "base" random address**_ which is very different from being truly random. Once you leak this "base" random address (like with canaries) and calculate a single offset value, you are back in the `ROP` and `RET2` bypasses territory. 
-  - The other binary segments like `GOT` and `PLT` are weakly randomized too, but only if the `PIE` flag was enabled at compilation. Otherwise, their address is static!
+  - The only way to bypass a canary, is to leak their values through another vulnerability in the code, like a `format string` memory leak, which we are going to talk about later.
+- ASLR + PIE
+  - ASLR fully randomizes the stack and heap memory, but not the binary sub-regions if `PIE` is disabled. In this case, ASLR is useless because the `GOT` and `PLT` binary segments are static. As we'll see, you can bypass it with a single `puts()` call and the usual `ROP` technique.
+  - If `PIE` is enabled, then all binary segments are "weakly" randomized, which means that library functions will be all _**at the same offset from a "base" random address**_ which is very different from being truly random. If you manage to leak this "base" random address (like with canaries) and calculate the offset value, you are back in the `ROP` bypasses territory.
+  - Finally, if no leaks are present and `PIE` is enabled, the ASLR implementation might randomize only some bytes of the base address, making bruteforcing a possibility.
 - RELRO
   - There are two versions, "Full" and "Partial" (which is the default in the latest `gcc`)
   - "Full RELRO" will resolve every library function address at the beginning of execution, and makes the `GOT` table read-only. This makes `RET2GOT` and `RET2PLT` attacks impossible, as you lose write permission in both regions.
