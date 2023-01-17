@@ -20,7 +20,7 @@ Contrary to 32-bit, not all the (2^64) addresses are utilized for memory mapping
 \
 As everything is stored in RAM, an assembly instruction itself also has a dedicated pointer, if this was not the case, the CPU wouldn't know what instruction to execute next.\
 \
-The memory map is divided into address chunks called "stack" and "heap". These areas are further divided into sub-regions called "binary segments", this concept is important because the binary segments get treated differently by some security measures, and are the starting point for some of the advanced attacks.\
+The memory map is divided in two main chunks called "stack" and "heap". These areas are further divided into sub-regions called "binary segments", this concept is important because the binary segments get treated differently by some security measures, and are the starting point for some of the advanced attacks.\
 \
 The stack is the region used to manage functions. Local variables, arguments, return values, return addresses are all stored in a "stack frame" when a function is called. The CPU can only perform two operations on the stack, the "push" and "pop" instructions, which mean "add" or "remove" 8 bytes from the top address. For this reason, the stack is called "static" memory, because you have no control over where the allocation happens.\
 \
