@@ -10,7 +10,7 @@ As the `RIP` holds the value of the next instruction to be executed, being able 
 \
 To find this value, we will overwrite the `RBP` with a non-repeating string of several chunks that `gdb` can generate for us.\
 \
-Once the `RBP` is overwritten with a portion of this string, we know for sure that this specific portion is unique in the original string, so we can get its exact position in it. This position expressed in amount of bytes is exactly the offset value.
+Once the `RBP` is overwritten with a portion of this string, we know for sure that this specific portion is unique in the original string, so we can get its exact position in it. This position expressed in amount of bytes is the offset value.
 
 ## Security Measures
 
@@ -23,7 +23,8 @@ There are various protections that make the exploitation of a stack overflow mor
   - A canary is a random address put on the stack, that gets checked prior to any function return in the code. If it gets modified (for example during a overflow) the whole execution of the program stops.
   - The only way to bypass a canary, is to leak their values through another vulnerability in the code, like a `format string` memory leak, which we are going to talk about extensively.
 - ASLR
-  - ASLR fully randomizes the stack and heap memory. Reaching the `RIP` will be impossible, because register addresses will be random after every execution. It is actually a OS security measure, as such, you can first try to exploit the binary without it, and then enable it again, to see if a bypass is possible. By default, `gdb` will debug without ASLR, to re-enable it run: `set disable-randomization off`.
+  - ASLR fully randomizes the stack and heap memory. Reaching the `RIP` will be impossible, because register addresses will be random after every execution. It is actually a OS security measure, as such, you can first try to exploit the binary without it, and then enable it again, to see if a bypass is possible. 
+  - To disable ASLR in your system, run `echo 0 | sudo tee /proc/sys/kernel/randomize_va_space`. By default, `gdb` will not display the effect of ASLR, to enable it run: `set disable-randomization off`.
   - Not all memory is fully randomized by ASLR. The `SO` sections are still "weakly" randomized, this means that library functions will be all _**at the same offset from a "base" random address**_ which is very different from being truly random. Once you leak this "base" random address (like with canaries) and calculate a single offset value, you are back in the `ROP` and `RET2` bypasses territory. 
   - The other binary segments like `GOT` and `PLT` are weakly randomized too, but only if the `PIE` flag was enabled at compilation. Otherwise, their address is static!
 - RELRO
