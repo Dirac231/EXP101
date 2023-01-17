@@ -17,7 +17,7 @@ Once the `RBP` is overwritten with a portion of this string, we know for sure th
 There are various protections that make the exploitation of a stack overflow more difficult, i am going to briefly discuss what they do leaving the attack details for later, for now the important thing is to underestand the logic behind the defense and the bypass:
 
 - NX Bit
-  - Marks the stack as non-executable. You can overwrite the `RIP`, but if you directly place code on the stack it will not be executed. 
+  - Marks the stack as non-executable. You can overwrite the `RIP`, but if you directly place instructions on the stack they will not get executed. 
   - NS is not a security measure, because overwriting the `RIP` still grants you control of the execution flow of the binary, meaning that you can execute arbitrary code by re-using native binary functions. This idea is called `ROP` bypass, it's a larger class of bypasses that include all the `RET2` bypasses.
 - CANARY
   - A canary is a random address put on the stack, that gets checked prior to any function return in the code. If it gets modified (for example during a overflow) the whole execution of the program stops.
