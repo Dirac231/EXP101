@@ -1,5 +1,7 @@
 
-## Exercise 1 - BabyPwn 2018
+## Exercise 1 - NX + ASLR
+
+https://jlajara.gitlab.io/Privesc_Ret2libc_ASLR_64
 
 - Enter in a `gdb` session for the binary, run the `checksec` command to check the security measures
   - Is the stack executable? Are the binary segments randomized? What about canaries?
