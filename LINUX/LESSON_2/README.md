@@ -18,7 +18,7 @@ There are various protections that make the exploitation of a stack overflow mor
 
 - NX Bit
   - Marks the stack as non-executable. You can overwrite the `RIP`, but if you directly place instructions on the stack they will not get executed. 
-  - NX is not a security measure, because overwriting the `RIP` still grants you control over the execution flow of the binary, you can execute arbitrary code by re-using native binary functions instead of placing extra code on the stack. This idea is called `ROP` bypass, it's a larger class of bypasses that include all the `RET2` bypasses.
+  - NX is not a security measure, because overwriting the `RIP` still grants you control over the execution flow of the binary. Instead of placing extra code on the stack, you can simply re-use native binary functions. This idea is called `ROP` bypass, it's a larger class of bypasses that include all the `RET2` bypasses.
 - CANARY
   - A canary is a random address put on the stack, that gets checked prior to any function return in the code. If it gets modified (for example during a overflow) the whole execution of the program stops.
   - The only way to bypass a canary, is to leak their values through another vulnerability in the code, like a `format string` memory leak, which we are going to talk about extensively.
