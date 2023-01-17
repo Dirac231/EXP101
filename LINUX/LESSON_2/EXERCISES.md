@@ -1,23 +1,28 @@
 
 ## Exercise 1 - NX Bit
 
-Consider the following `overflow.c` code:
+Consider the following `check.c` code:
 
 ```C
 #include <string.h>
-
-int overflow(char* input){
-  char buf[25];
-  strcpy(buf, input);
-  return 1;  
-}
+#include <stdio.h>
+#include <stdlib.h>
 
 int main(int argc, char** argv){
-  overflow(argv[1]);
-  return 1;
+  char buf[50];
+  puts("Input the secret password: ");
+  gets(buf);
+  
+  if(!strcmp(buf, "SuperSecretPassword")){
+    printf("Access Granted");
+    return 1;
+  }
+  
+  printf("Wrong Password!");
+  return 0;
 }
 ```
-- Compile the code disabling every security measure, with the command:
+- Compile the code disabling every security measure but NX, with the command:
   - `gcc -m64 -fno-stack-protector -no-pie -Wl,-z,norelro overflow.c`
 - Enter in a `gdb` session for the binary, run the `checksec` command to check the security measures
   - Is the stack an executable region? Are addresses randomized?
