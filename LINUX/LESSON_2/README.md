@@ -24,7 +24,7 @@ There are various protections that make the exploitation of a stack overflow mor
   - The only way to bypass a canary, is to leak their values through another vulnerability in the code, like a `format string` memory leak, which we are going to talk about later.
 - ASLR + PIE
   - ASLR fully randomizes the stack and heap memory, but not the binary sub-regions if `PIE` is disabled. In this case, ASLR is useless because the `GOT` and `PLT` binary segments are static. As we'll see, you can bypass it with a single `puts()` call and the usual `ROP` technique.
-  - If `PIE` is enabled, then all binary segments are "weakly" randomized, which means that library functions will be all _**at the same offset from a "base" random address**_ which is very different from being truly random. If you manage to leak this "base" random address (like with canaries) and calculate the offset value, you are back in the `ROP` bypasses territory.
+  - If `PIE` is enabled, then all binary segments are "weakly" randomized, which means that library functions will be all _**at the same offset from a "base" random address**_ which is very different from being truly random. If you manage to leak this "base" random address (again with a `format string`) and calculate the offset value, you are back in the `ROP` bypasses territory.
   - Finally, if no leaks are present and `PIE` is enabled, the ASLR implementation might randomize only some bytes of the base address, making bruteforcing a possibility.
 - RELRO
   - There are two versions, "Full" and "Partial" (which is the default in the latest `gcc`)
