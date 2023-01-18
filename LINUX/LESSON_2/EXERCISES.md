@@ -14,6 +14,7 @@ Due to "stack alignment" issues, when creating `ROP` code, it's worth to inject 
     - Get the address of `system()` in `LIBC` by setting a breakpoint at `main()`, running the binary, then `p system`
     - Search in the `libc` memory for the `"/bin/sh"` string, with the command `find [system_address],+99999999,"/bin/sh"`
     - Outside `gdb` use `ropper -f [binary] --search "pop rdi; ret"` to search the address corresponding to a `pop rdi` instruction
-    - Supply to the RIP this address, then append the `/bin/sh` string address. This will copy `/bin/sh` into the `rdi` register
-    - As `rdi` stores the first argument of the next function, if you append the `system()` address next, you will execute `system("/bin/sh")`, getting code execution.
+    - Use ropper to also find a single `ret;` instruction. append this address to the exploit string, this is known as "stack alignment"
+    - append the `pop rdi` address to the exploit string, then append the `/bin/sh` string address. `/bin/sh` is now in the `rdi` register, ready to be passed as argument.
+    - Append the `system()` address to the exploit string, the exploit is complete and `system("/bin/sh")` will be executed by the binary.
   - Make the binary execute a shell by supplying the full input string to it.
