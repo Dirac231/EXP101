@@ -10,7 +10,7 @@ As the `RIP` holds the value of the next instruction to be executed, being able 
 \
 To find this value, we will overwrite the `RBP` with a non-repeating string of several chunks that `gdb` can generate for us.\
 \
-Once the `RBP` is overwritten with a portion of this string, we know for sure that this specific portion is unique in the original string, so we can get its exact position in it. This position expressed in amount of bytes is the offset value.
+Once the `RBP` is overwritten with a portion of this string, we know that this specific portion is unique in the original string, so we can get its exact position in it. This position expressed in amount of bytes is the offset value.
 
 ## Security Measures
 
