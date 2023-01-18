@@ -1,9 +1,8 @@
 
-Due to "stack alignment" issues, when creating `ROP` code, it's worth to inject a `ret` instruction in the `rip` register, before any `pop rdi`
-
 ## Exercise 1 - NX Bypass
 
 - Get the binary by running `wget https://gr4n173.github.io/ret2libc/public/files/climb`
+- Disable ASLR by running `echo 0 | sudo tee /proc/sys/kernel/randomize_va_space`
 - Enter in a `gdb` session for the binary, run the `checksec` command to check the security measures
   - Is the stack executable? Which binary segments are randomized? What about canaries?
 - Generate a pattern of 300 bytes with `pattern create 300`, we will use this to overwrite the `RBP`
