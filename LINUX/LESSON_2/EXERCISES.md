@@ -1,5 +1,5 @@
 
-Due to "stack alignment" issues, when creating `ROP` code, it's worth to first inject the `main()` address in the `rip` followed by other instructions.
+Due to "stack alignment" issues, when creating `ROP` code, it's worth to first inject the `main()` address or a `ret` instruction in the `rip` register.
 
 ## Exercise 1 - NX + ASLR
 
