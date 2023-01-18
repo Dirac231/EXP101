@@ -1,4 +1,6 @@
 
+Due to "stack alignment" issues, when creating `ROP` code, it's worth to first inject the `main()` address in the `rip` followed by other instructions.
+
 ## Exercise 1 - NX + ASLR
 
 https://jlajara.gitlab.io/Privesc_Ret2libc_ASLR_64
