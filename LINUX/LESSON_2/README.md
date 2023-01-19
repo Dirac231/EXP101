@@ -6,11 +6,11 @@ This happens because the `strcpy()` function doesn't check the length of the inp
 \
 If the input string is long enough, as you've seen, the `RBP` register gets overwritten with it. Since the beginning of the `RBP` is always 8 bytes before the `RIP` address, if we overwrite those 8 bytes with junk data, we are at the right position in memory to write a canonical 48-bit address in the `RIP`.\
 \
-As the `RIP` holds the value of the next instruction to be executed, being able to do this means to execute arbitrary code on the system. This is called a "stack overflow" vulnerability. To exploit it, we only need to find the right string length (called "offset") to reach the beginning of the `RBP`.\
+As the `RIP` holds the value of the next instruction to be executed, being able to do this means to execute arbitrary code on the system. This is called a "stack overflow" vulnerability. To exploit it, we only need to find the right string length (called "offset") to reach the beginning of the `RIP`.\
 \
-To find this value, we will overwrite the `RBP` with a non-repeating string of several chunks that `gdb` can generate for us.\
+To find this value, we will first overwrite the `RBP` with a non-repeating string of several chunks that `gdb` can generate for us.\
 \
-Once the `RBP` is overwritten with a portion of this string, we know that this specific portion is unique in the original string, so we can get its exact position in it. This position expressed in amount of bytes is the offset value.
+Once the `RBP` is overwritten with a portion of this string, we know that this specific portion is unique in the original string, so we can get its exact position in it. We will take this position in bytes, add 8 to it, and that's going to be the offset value.
 
 ## Security Measures
 
