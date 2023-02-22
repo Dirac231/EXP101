@@ -1,5 +1,5 @@
 
-## Exercise 1 - NX 
+## Exercise 1 - NX Bypass
 
 - Get the binary by running `wget https://gr4n173.github.io/ret2libc/public/files/climb`
 - Disable ASLR by running `echo 0 | sudo tee /proc/sys/kernel/randomize_va_space`
