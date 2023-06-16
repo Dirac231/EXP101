@@ -39,7 +39,7 @@ After this whole process, the `SO` file is part of the binary memory, saved in t
 
 ## CPU Registers, Assembly
 
-To handle the memory map, the CPU uses "registers", which are "hardware" 64-bit addresses (therefore NOT located in RAM), that the CPU uses for specific purposes, for example to copy values from the memory map, and perform operations on it.\
+To handle the memory map, the CPU uses "registers", which are "hardware" 64-bit addresses outside the RAM memory map, that the CPU uses for specific purposes, for example to copy values from the memory map, and perform operations on it.\
 \
 The important ones are:
 - `RAX`: Used to store the return value of functions, and perform temporary operations.
