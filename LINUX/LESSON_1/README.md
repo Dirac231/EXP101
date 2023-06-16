@@ -37,11 +37,11 @@ After this whole process, the `SO` file is part of the binary memory, saved in t
 To handle the memory map, the CPU uses "registers", which are "hardware" 64-bit addresses (therefore NOT located in RAM), that the CPU uses for specific purposes, for example to copy values from the memory map, and perform operations on it.\
 \
 The important ones are:
-- RAX: Used to store the return value of functions, and perform temporary operations.
-- RSP: Used to store the pointer to the top of the stack.
-- RBP: Used to backup the value of ESP before it changes, also known as "base pointer".
-- RDI / RSI / RDX / RCX: In order, they store the first 4 arguments of a function.
-- RIP: Used to store the pointer to the next assembly instruction. Only accepts a canonical address.
+- `RAX`: Used to store the return value of functions, and perform temporary operations.
+- `RSP`: Used to store the pointer to the top of the stack.
+- `RBP`: Used to backup the value of ESP before it changes, also known as "base pointer".
+- `RDI` / `RSI` / `RDX` / `RCX`: In order, they store the first 4 arguments of a function.
+- `RIP`: Used to store the pointer to the next assembly instruction. Only accepts a canonical address.
 
 The code is compiled into assembly instructions, each taking at most 2 arguments, that operate between these registers and the RAM addresses. The most important instructions are:
 - `mov    [address_1] [address_2]`
