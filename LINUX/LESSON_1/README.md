@@ -44,9 +44,9 @@ The important ones are:
 
 The code is compiled into assembly instructions, each taking at most 2 arguments, that operate between these registers and the RAM addresses. Here are the most important ones, written following the `gdb` convention used for exploit development:
 - `mov    [address_1] [address_2]`
-  - In `gbd` notation, moves the **value** contained in `[address_2]` into `[address_1]`
+  - Moves the **value** contained in `[address_2]` into `[address_1]`
 - `lea    [address_1] [value_2]`
-  - In `gdb` notation, moves the **address** of `[value_2]` into `[address_1]`. In `gdb`, square brackets will indicate that the address is being taken instead of the value.
+  - Mves the **address** of `[value_2]` into `[address_1]`. In `gdb`, square brackets will indicate that the address is being taken instead of the value.
 - `pop    [address]`
   - Removes 8 bytes from the stack top address (kept in the `rsp`) and moves those bytes in `[address]`
 - `push   [address]`
