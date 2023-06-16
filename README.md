@@ -1,3 +1,3 @@
 ## What is this?
 
-An exercise-based guide to learn 64-bit linux binary exploitation techniques, divided into essential lessons.
+An exercise-based guide to learn 64-bit linux binary exploitation, divided into lessons.
