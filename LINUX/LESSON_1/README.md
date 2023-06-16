@@ -14,7 +14,9 @@ When you compile a code, you can choose the target "architecture" to be 32-bit o
 - The RAM memory map.
 - The CPU registers, their size, and the assembly language used to manipulate them.
 
-The RAM is the actual piece of hardware where a process data is stored in 0s and 1s. After a binary gets executed, a "memory map" of the RAM is generated (also called "virtual address space"). For 64-bit, it consists of all hex strings from `0x0000000000000000` to `0xFFFFFFFFFFFFFFFF` called "pointers". To each of these pointers corresponds a value stored in the physical RAM, and the CPU uses this "map" to read/write data from the RAM.\
+The RAM is the actual piece of hardware where a process data is stored in 0s and 1s. After a binary gets executed, a "memory map" of the RAM is generated (also called "virtual address space").\
+\
+For 64-bit, it consists of all hex strings from `0x0000000000000000` to `0xFFFFFFFFFFFFFFFF` called "pointers". To each of these pointers corresponds a value stored in the physical RAM, and the CPU uses this "map" to read/write data from the RAM.\
 \
 Contrary to 32-bit, not all the (2^64) addresses are utilized for memory mapping. Only "canonical" addresses are used, that is the range `0x0000000000000000` to `0x00007FFFFFFFFFFF` and `0xFFFF800000000000` to `0xFFFFFFFFFFFFFFFF`. Any address outside this range is "non-canonical" and therefore irrelevant for our purposes, notice how they have 48 bits of entropy.
 
