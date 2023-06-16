@@ -23,9 +23,11 @@ Contrary to 32-bit, not all the (2^64) addresses are utilized for memory mapping
 ## Stack, Heap, Segments
 The memory map is divided in two main chunks called "stack" and "heap". These areas are further divided into sub-regions called "binary segments", this concept is important because the binary segments get treated differently by some security measures, and are the starting point for some of the advanced attacks.\
 \
-The stack is the region used to manage functions. Local variables, arguments, return values, return addresses are all stored in a "stack frame" when a function is called. The CPU can only perform two operations on the stack, the "push" and "pop" instructions, which mean "add" or "remove" 8 bytes from the top address. For this reason, the stack is called "static" memory, because you have no control over where the allocation happens.\
+The `stack` is the region used to manage functions. Local variables, arguments, return values and return addresses are all stored in a "stack frame" when a function is called.\
 \
-The "heap" is the region used for every other kind of memory management, it's dynamic, meaning that you can allocate, extend, shrink, de-allocate memory for multiple kinds of data, and static/global variables are here.\
+The CPU can only perform two operations on the stack, the "push" and "pop" instructions, which mean "add" or "remove" 8 bytes from the top address. For this reason, the stack is called "static" memory, because you have no control over where the allocation happens.\
+\
+The `heap` is the region used for every other kind of memory management, it's dynamic, meaning that you can allocate, extend, shrink, de-allocate memory for multiple kinds of data, static and global variables are found here.\
 \
 The "binary segments" are the sub-regions of the stack and heap containing the variables and functions used by the binary. The important ones are the `GOT` table, the `PLT`, and the `SO` local files. The `SO` files contain the code for the extra library functions, like the native functions `gets()` or `puts()`. One example is `/lib/i386-linux-gnu/libc-2.27.so` found in your linux system.\
 \
