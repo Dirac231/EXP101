@@ -16,10 +16,9 @@ When you compile a code, you can choose the target "architecture" to be 32-bit o
 
 The RAM is the actual piece of hardware where a process data is stored in 0s and 1s. After a binary gets executed, a "memory map" of the RAM is generated (also called "virtual address space"). For 64-bit, it consists of all hex strings from `0x0000000000000000` to `0xFFFFFFFFFFFFFFFF` called "pointers". To each of these pointers corresponds a value stored in the physical RAM, and the CPU uses this "map" to read/write data from the RAM.\
 \
-Contrary to 32-bit, not all the (2^64) addresses are utilized for memory mapping. Only "canonical" addresses are used, that is the range `0x0000000000000000` to `0x00007FFFFFFFFFFF` and `0xFFFF800000000000` to `0xFFFFFFFFFFFFFFFF`. Any address outside this range is non-canonical, notice how they are 48-bits long.\
-\
-As everything is stored in RAM, an assembly instruction itself also has a dedicated pointer, if this was not the case, the CPU wouldn't know what instruction to execute next.\
-\
+Contrary to 32-bit, not all the (2^64) addresses are utilized for memory mapping. Only "canonical" addresses are used, that is the range `0x0000000000000000` to `0x00007FFFFFFFFFFF` and `0xFFFF800000000000` to `0xFFFFFFFFFFFFFFFF`. Any address outside this range is "non-canonical" and therefore irrelevant for our purposes, notice how they have 48 bits of entropy.
+
+## Stack, Heap, Segments
 The memory map is divided in two main chunks called "stack" and "heap". These areas are further divided into sub-regions called "binary segments", this concept is important because the binary segments get treated differently by some security measures, and are the starting point for some of the advanced attacks.\
 \
 The stack is the region used to manage functions. Local variables, arguments, return values, return addresses are all stored in a "stack frame" when a function is called. The CPU can only perform two operations on the stack, the "push" and "pop" instructions, which mean "add" or "remove" 8 bytes from the top address. For this reason, the stack is called "static" memory, because you have no control over where the allocation happens.\
