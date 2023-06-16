@@ -49,17 +49,17 @@ The important ones are:
 - `RIP`: Used to store the pointer to the next assembly instruction. Only accepts a canonical address.
 
 The code is compiled into assembly instructions, each taking at most 2 arguments, that operate between these registers and the RAM addresses. Here are the most important ones, written following the `gdb` convention used for exploit development:
-- `mov    [address_1] [address_2]`
+- `mov [address_1] [address_2]`
   - Moves the **value** contained in `[address_2]` into `[address_1]`
-- `lea    [address_1] [value_2]`
+- `lea [address_1] [value_2]`
   - Mves the **address** of `[value_2]` into `[address_1]`. In `gdb`, square brackets will indicate that the address is being taken instead of the value.
-- `pop    [address]`
+- `pop [address]`
   - Removes 8 bytes from the stack top address (kept in the `rsp`) and moves those bytes in `[address]`
-- `push   [address]`
+- `push [address]`
   - Pushes `[address]` to the top of the stack (`rsp` will therefore point to this address)
-- `jmp    [address]`
+- `jmp [address]`
   - Jumps to a specific address and continues execution from there.
-- `call   [function address]`
+- `call [function address]`
   - Calls a function. Before this line, assembly first processes the arguments (using `rax` with `rdi`, `rsi`, ...), pushes the `return` address, and moves the function address into the `rip`. Local variables are allocated by "subtracting" the `rsp`, for example `subl esp, 0x8` allocates 8 bytes.
 - `ret`    
   - Does a `pop rip` followed by a `jmp [return_address]`, at the end of a function call.
