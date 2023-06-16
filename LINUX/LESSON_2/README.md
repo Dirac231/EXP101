@@ -17,8 +17,8 @@ Once the `RBP` is overwritten with a portion of this string, we know that this s
 There are various protections that make the exploitation of a stack overflow more difficult, i am going to briefly discuss what they do leaving the attack details for later exercises:
 
 - NX Bit
-  - A bit which can be set to `1`, marking the stack as a non-executable region. While you can still overwrite the `RIP` register, placing instructions after that will fail, as the stack can't execute external code. 
-  - NX is not really a security measure, overwriting the `RIP` still grants you control over the execution flow of the binary. You can then piece together existing instructions of the binary to achieve code execution. This whole idea of re-using code pieces is called `ROP` bypass.
+  - When set to `1`, the stack becomes a non-executable region. Meaning that even if you overwrite the `RIP` register, extra code after that register will not get executed. 
+  - NX is not really a security measure, overwriting the `RIP` still grants you control over the execution flow of the binary. You can then piece together existing instructions of the binary to achieve code execution. This idea of re-using and chaining together native code pieces is called `ROP` bypass.
 - CANARY
   - A canary is a random address put on the stack, that gets checked prior to any function return in the code. If it gets modified (for example during a overflow) the whole execution of the program stops.
   - The only way to bypass a canary, is to leak their values through another vulnerability in the code, like a `format string` memory leak, which we are going to talk about later.
