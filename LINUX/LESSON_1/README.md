@@ -12,7 +12,7 @@ The code is translated via the "compiler" in a sequence of CPU instructions know
 \
 When you compile a code, you can choose the target "architecture" to be 32-bit or 64-bit. We will work always with 64-bit, the architecture decides two things:
 - The RAM memory map.
-- The CPU registers and their size.
+- The CPU registers, their size, and the assembly language used to manipulate them.
 
 The RAM is the actual piece of hardware where a process data is stored in 0s and 1s. After a binary gets executed, a "memory map" of the RAM is generated (also called "virtual address space"). For 64-bit, it consists of all hex strings from `0x0000000000000000` to `0xFFFFFFFFFFFFFFFF` called "pointers". To each of these pointers corresponds a value stored in the physical RAM, and the CPU uses this "map" to read/write data from the RAM.\
 \
