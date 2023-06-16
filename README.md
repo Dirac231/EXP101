@@ -1,3 +1,3 @@
 ## What is this?
 
-A guide to learn linux exploit development from scratch (but only if you complete the exercises)
+This is an exercise-based guide to learn linux exploit development from scratch, mainly for 64-bit architectures.
