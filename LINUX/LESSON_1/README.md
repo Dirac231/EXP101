@@ -10,7 +10,7 @@ A "binary" is the compiled version of a code, written in a programming language.
 \
 The code is translated via the "compiler" in a sequence of CPU instructions known as "assembly", each instruction corresponding to an elementary CPU operation.\
 \
-When you compile a code, you can choose the target "architecture" to be 32-bit or 64-bit. We will work always with 64-bit, the architecture decides two things:
+When you compile a code, you can choose the target "architecture" to be 32-bit or 64-bit. This decides two things:
 - The RAM memory map.
 - The CPU registers, their size, and the assembly language used to manipulate them.
 
