@@ -42,7 +42,7 @@ The important ones are:
 - `RDI` / `RSI` / `RDX` / `RCX`: In order, they store the first 4 arguments of a function.
 - `RIP`: Used to store the pointer to the next assembly instruction. Only accepts a canonical address.
 
-The code is compiled into assembly instructions, each taking at most 2 arguments, that operate between these registers and the RAM addresses. The most important instructions are:
+The code is compiled into assembly instructions, each taking at most 2 arguments, that operate between these registers and the RAM addresses. Here are the most important ones, written following the `gdb` convention used for exploit development:
 - `mov    [address_1] [address_2]`
   - In `gbd` notation, moves the **value** contained in `[address_2]` into `[address_1]`
 - `lea    [address_1] [value_2]`
