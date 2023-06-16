@@ -1,19 +1,27 @@
+We will start practicing stack overflows when different security measures are activated. Enabling them one-by-one, increasing the difficulty gradually.
 
-## Exercise 1 - NX Bypass
+## Exercise 1 - NX Enabled
 
-- Get the binary by running `wget https://gr4n173.github.io/ret2libc/public/files/climb`
-- Disable ASLR by running `echo 0 | sudo tee /proc/sys/kernel/randomize_va_space`
-- Enter in a `gdb` session for the binary, run the `checksec` command to check the security measures
-  - Is the stack executable? Which binary segments are randomized? What about canaries?
-- Generate a pattern of 300 bytes with `pattern create 300`, we will use this to overwrite the `RBP`
-  - Find the vulnerable function, set a breakpoint to it, then continue execution. Paste the pattern on the standard input.
-  - Inspect the `RBP` register after the crash, get the offset value with `pattern offset [rbp_value]`
-  - Add 8 bytes to this value, a string like `'A'*[offset+8] + [address]` will now reach the `RIP` and overwrite it a chosen address.
-  - Since the stack is not executable, we will reach the function `system()` in `LIBC` and pass `"/bin/sh"` to it.
-    - Get the address of `system()` in `LIBC` by setting a breakpoint at `main()`, running the binary, then `p system`
-    - Search in the `libc` memory for the `"/bin/sh"` string, with the command `find [system_address],+99999999,"/bin/sh"`
-    - Outside `gdb` use `ropper -f [binary] --search "pop rdi; ret"` to search the address corresponding to a `pop rdi` instruction
-    - Use ropper to also find a single `ret;` instruction. append this address to the exploit string, this is known as "stack alignment"
-    - append the `pop rdi` address to the exploit string, then append the `/bin/sh` string address. `/bin/sh` is now in the `rdi` register, ready to be passed as argument.
-    - Append the `system()` address to the exploit string, the exploit is complete and `system("/bin/sh")` will be executed by the binary.
-  - Make the binary execute a shell by supplying the full input string to it.
+- Disable the OS-level ASLR protection by running `echo 0 | sudo tee /proc/sys/kernel/randomize_va_space`
+- Get the exercise binary by running `wget https://gr4n173.github.io/ret2libc/public/files/climb`
+- Enter in a `gdb` session for the binary, run the `checksec` command to check the security measures, answer the following:
+  - Is the stack executable? 
+  - Which binary segments are randomized? 
+  - Are canaries present?
+  - Can you write the `GOT` and `PLT` sections?
+- Generate a pattern of 300 bytes with `pattern create 300`, we will use this string to overwrite the `RBP` register, as we said in the theory section.
+  - Find the vulnerable function, set a breakpoint to it, then continue execution. 
+  - Paste the pattern string on the standard input, observe that a crash happens.
+  - Inspect the `RBP` register after the crash, get it's value with `pattern offset [rbp_value]` then add 8 bytes to it, the number that you get is the "offset".
+  - Begin to write your your exploit string like this: `'A'*[offset] + [exploit_address]`
+  - The `exploit_address` will be equal to the sum of 4 different addresses we need to get: `RET + POP_RDI + BIN_SH + SYSTEM`
+    - To get `RET`, execute in a separate terminal: `ropper -f [vulnerable_binary] --search "ret;"`
+    - To get `POP_RDI`, execute in a separate terminal: `ropper -f [vulnerable_binary] --search "pop rdi; ret"`
+    - To get `SYSTEM`, execute the following while in a new `gdb [vulnerable_binary]` session:
+      - `b main`
+      - `r`
+      - `p system`
+    - To get `BIN_SH`, search the memory for the "/bin/sh" string in `gdb` with the follwing: 
+      - `find [system_address_here],+99999999,"/bin/sh"`
+    - Append the addresses you found to the original exploit string in the correct order
+    - Make the binary execute a shell, achieving code execution.
