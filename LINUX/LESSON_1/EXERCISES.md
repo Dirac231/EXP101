@@ -1,6 +1,6 @@
 ## Debugging
 
-To compile a C source code to a binary, use the `gcc -m64 [file.c] -o binary` command.
+To compile a C code to a 64-bit binary, execute the `gcc -m64 [file.c] -o binary` command in your terminal.
 
 ## Exercise 1
 
