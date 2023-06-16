@@ -29,7 +29,9 @@ The CPU can only perform two operations on the stack, the "push" and "pop" instr
 \
 The `heap` is the region used for every other kind of memory management, it's dynamic, meaning that you can allocate, extend, shrink, de-allocate memory for multiple kinds of data, static and global variables are found here.\
 \
-The "binary segments" are the sub-regions of the stack and heap containing the variables and functions used by the binary. The important ones are the `GOT` table, the `PLT`, and the `SO` local files. The `SO` files contain the code for the extra library functions, like the native functions `gets()` or `puts()`. One example is `/lib/i386-linux-gnu/libc-2.27.so` found in your linux system.\
+The "binary segments" are those specific sub-regions of the stack and heap containing all the variables and functions used by the binary.\
+\
+The important ones are the `GOT` table, the `PLT`, and the `SO` local files. The `SO` files contain the code for the extra library functions, like the native functions `gets()` or `puts()`. One example is `/lib/i386-linux-gnu/libc-2.27.so` found in your linux system.\
 \
 Even if you don't declare them, the binary always knows where native functions are, thanks to the "linker", a small piece of code found in the `PLT` section that looks for these functions in the `SO` files. Once found, the corresponding address is saved in the `GOT` table. When the binary needs to call `gets()`, it searches the `GOT` table to find the correct address.\
 \
