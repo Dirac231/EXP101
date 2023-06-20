@@ -13,15 +13,14 @@ We will start practicing stack overflows when different security measures are ac
   - Find the vulnerable function, set a breakpoint to it, then continue execution. 
   - Paste the pattern string on the standard input, observe that a crash happens.
   - Inspect the `RBP` register after the crash, get it's value with `pattern offset [rbp_value]` then add 8 bytes to it, the number that you get is the "offset".
-  - Begin to write your your exploit string like this: `'A'*[offset] + [exploit_address]`
+  - Begin to write your exploit string like this: `'A'*[offset] + [exploit_address]`, we will use this string as input for the binary later.
   - The `exploit_address` will be equal to the sum of 4 different addresses we need to get: `RET + POP_RDI + BIN_SH + SYSTEM`
     - To get `RET`, execute in a separate terminal: `ropper -f [vulnerable_binary] --search "ret;"`
     - To get `POP_RDI`, execute in a separate terminal: `ropper -f [vulnerable_binary] --search "pop rdi; ret"`
-    - To get `SYSTEM`, execute the following while in a new `gdb [vulnerable_binary]` session:
+    - To get `SYSTEM` and `BIN_SH`, execute the following while in a new `gdb [vulnerable_binary]` session:
       - `b main`
       - `r`
       - `p system`
-    - To get `BIN_SH`, search the memory for the "/bin/sh" string in `gdb` with the follwing: 
-      - `find [system_address_here],+99999999,"/bin/sh"`
-    - Append the addresses you found to the original exploit string in the correct order
-    - Make the binary execute a shell, achieving code execution.
+      - `find [SYSTEM_ADDRESS_HERE],+99999999,"/bin/sh"`
+    - Append the addresses you found to the original exploit string in the correct order.
+    - Make the binary execute a shell by providing the exploit string as input, achieving code execution.
