@@ -18,7 +18,9 @@ int main(int argc, char** argv){
   return 1;
 }
 ```
-- Before starting `gdb`, check the binary with the command `file [binary]`, can you see the architecture?
+- Before starting `gdb`, check the binary with the command `file [binary]`
+  - What is the target architecture?
+  - What is the target OS?
 - Check the loaded library functions with the command `ldd [binary]`, what is the address of `libc.so`?
 - Start debugging with `gdb [binary]`, then run `disas main` to get the assembly code for the `main()` function.
   - Find the allocation of the variable `n`, notice how `DWORD` is used for integers.
