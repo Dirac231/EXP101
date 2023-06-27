@@ -21,7 +21,9 @@ For 64-bit, it consists of all hex strings from `0x0000000000000000` to `0xFFFFF
 Contrary to 32-bit, not all the (2^64) addresses are utilized for memory mapping. Only "canonical" addresses are used, that is the range `0x0000000000000000` to `0x00007FFFFFFFFFFF` and `0xFFFF800000000000` to `0xFFFFFFFFFFFFFFFF`. Any address outside this range is "non-canonical" and therefore irrelevant for our purposes, notice how they have 48 bits of entropy.
 
 ## Stack, Heap, Segments
-The memory map is divided in two main chunks called "stack" and "heap". These areas are further divided into sub-regions called "binary segments", this concept is important because the binary segments get treated differently by some security measures, and are the starting point for some of the advanced attacks.\
+The memory map is divided in two main chunks called "stack" and "heap".\
+\
+These areas are further divided into sub-regions called "binary segments", this concept is important because the binary segments get treated differently by some security measures, and are the starting point for some of the advanced attacks.\
 \
 The `stack` is the region used to manage functions. Local variables, arguments, return values and return addresses are all stored in a "stack frame" when a function is called.\
 \
