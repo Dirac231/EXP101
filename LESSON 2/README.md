@@ -18,7 +18,7 @@ There are various protections that make the exploitation of a stack overflow mor
 
 - NX Bit
   - When set to `1`, the stack becomes a non-executable region. Meaning that even if you overwrite the `RIP` register, extra code after that register will not get executed. 
-  - NX is not really a security measure, overwriting the `RIP` still grants you control over the return pointer, meaning you can still hijack the execution flow without actually going past this register. We will achieve this by re-using existing instructions in the assembly code to build a payload and recursively returning to the `RIP`. This idea of re-using and chaining together native code pieces is called `ROP` chaining and is a key technique.
+  - NX is not really effective, overwriting the `RIP` means you can control the return pointer, so you can still hijack the execution flow without really going past this register. We can achieve this by re-using existing instructions in the assembly code to build a payload. This idea of chaining together native code pieces is called `ROP` bypass.
 - CANARY
   - A canary is a random address put on the stack, that gets checked prior to any function return in the code. If it gets modified (for example during a overflow) the whole execution of the program stops.
   - The only way to bypass a canary, is to read their values at exploitation-time through a vulnerability in the code that allows arbitrary memory read, the most famous probably being the `format string` leak method.
