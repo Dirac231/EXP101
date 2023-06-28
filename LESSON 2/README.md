@@ -14,7 +14,7 @@ Once the `RBP` is overwritten with a portion of this string, we know that this s
 
 ## Security Measures
 
-There are various protections that make the exploitation of a stack overflow more difficult, i am going to briefly discuss what they do leaving the attack details for later exercises:
+There are various protections that make the exploitation of a stack overflow more difficult, let's discuss them briefly together with their bypass, as they will be the topic of the next exercise file:
 
 - NX Bit
   - When set to `1`, the stack becomes a non-executable region. Meaning that even if you overwrite the `RIP` register, extra code after that register will not get executed. 
