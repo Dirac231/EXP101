@@ -6,7 +6,9 @@ sudo apt install -y gdb python3 git python3-pip && wget -O ~/.gdbinit-gef.py -q 
 
 ## Binaries & Memory
 
-A "binary" is the compiled version of a code, written in a programming language. Some languages are "interpreted", meaning that the code gets compiled line-by-line during execution, so that you often don't have a binary to execute. We are interested in the other category, that consists of "compiled" languages, like C for example, in which compilation produces an executable file. We will always either take a C program or a direct binary to train exploitation techniques later on.\
+A "binary" is the compiled version of a code, written in a programming language. Some languages are "interpreted", meaning that the code gets compiled line-by-line during execution, so that you often don't have a binary to execute. We are interested in the other category, that consists of "compiled" languages, like C for example, in which compilation produces an executable file.\
+\
+We will always either take a C program or a direct binary to train exploitation techniques later on.\
 \
 The C code is translated via the "compiler" in a sequence of CPU instructions known as "assembly" code, each instruction corresponding to an elementary CPU operation.\
 \
