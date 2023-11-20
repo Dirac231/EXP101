@@ -1,7 +1,7 @@
 ## Tools Installation
-Before continuing, please use this one-line command to install the necessary tools (`gef`,`pip3`,`ropper` and `pwntools`):
+Before continuing, please use this one-line command to install the necessary tools (`gcc`,`gef`,`pip3`,`ropper` and `pwntools`):
 ```
-sudo apt install -y gdb python3 git python3-pip && wget -O ~/.gdbinit-gef.py -q https://gef.blah.cat/py && echo source ~/.gdbinit-gef.py >> ~/.gdbinit && pip3 install pwntools ropper
+sudo apt install -y build-essential gcc gdb python3 git python3-pip && wget -O ~/.gdbinit-gef.py -q https://gef.blah.cat/py && echo source ~/.gdbinit-gef.py >> ~/.gdbinit && pip3 install pwntools ropper
 ```
 
 ## Binaries & Memory
