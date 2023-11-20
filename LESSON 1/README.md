@@ -6,11 +6,7 @@ sudo apt install -y build-essential gcc gdb python3 git python3-pip && wget -O ~
 
 ## Binaries & Memory
 
-A "binary" is the compiled version of a code, written in a programming language. Some languages are "interpreted", meaning that the code gets compiled line-by-line during execution, so that you often don't have a binary to execute. We are interested in the other category, that consists of "compiled" languages, like C for example, in which compilation produces an executable file.\
-\
-We will always either take a C program or a direct binary to train exploitation techniques later on.\
-\
-The C code is translated via the "compiler" in a sequence of CPU instructions known as "assembly" code, each instruction corresponding to an elementary CPU operation.\
+When compiling a C project, the code is translated in a sequence of CPU instructions known as "assembly", each instruction corresponding to an elementary CPU operation, this produces a binary file as with compiled languages.\
 \
 When you compile a code, you can choose the target "architecture" to be 32-bit or 64-bit. This decides two things:
 - The RAM memory map.
