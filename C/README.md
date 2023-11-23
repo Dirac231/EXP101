@@ -7,11 +7,12 @@ char z = 'a';         // 1 Byte  - %c
 int x = 0;            // 4 Bytes - %d
 float y = 5.25        // 4 Bytes - %f
 double z = 1.14159;   // 8 Bytes - %g
+const int a = 1;      // Use the "const" keyword to make a variable read-only
 
-printf("The float z is equal to %g", z);
-
-// Read-only variables are declared using "const"
-const int A = 1;
+// Variables outside functions are "global"
+// - Available everywhere in the code
+// - Allocated on the heap
+int A = 1;
 const double pi = 3.14;
 
 // Variables inside functions are "local"
@@ -21,16 +22,11 @@ void main(){
   int x = 1;
 }
 
-// Convert a variable type to another via "casting"
-int num1 = 1;
-int num2 = 2;
-float ratio = (float)num1 / num2;
-
-// Pointers are variables containing the address of an "heap" variable, accessed with *
-int* p = NULL;
-*p = 5;
-printf("The pointer p is pointing at the address %x", p);
-p++   // Pointers can be incremented, shifting to the next memory address, important for arrays
+// Pointers are memory addresses of variables
+int n = 5;    // We create an integer "n"
+int* p = &n;  // We create a integer pointer "p", pointing to the "n" variable using &
+*p = 1;       // The value contained in the pointer is accessed with *, changing this value will also change "n"
+p++           // Pointers can be incremented to the next memory address, "p" does not point to "n" anymore
 ```
 
 ### Arrays
