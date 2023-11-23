@@ -54,18 +54,22 @@ int main(){
   array = &array_space[starting_point]; 
   munmap(array_space, length);
 
-  // Strings in C are dynamic arrays of chars, with two differences
-  // 1 - They can be iterated, because they are terminated with '\0'
+  // Strings in C are dynamic arrays of chars, with three important aspects
+  // 1) They can be iterated, because they are terminated with '\0'
   char* str = "hello_world";
   for(char* q = str; *q != '\0'; q++){
     // Access the *q character
   }
 
-  // 2 - They can be initialized in two different ways
+  // 2) They can be initialized in two different ways
   char* myString = "hello";               // Statically  - read-only, already terminated
 
   char* otherString = malloc(length+1);   // Dynamically - read/write, must be terminated
   otherString[length] = '\0';
+
+  // 3) To include the full UTF-8 character range, we must use a library
+  #include <uchar.h>
+  char32_t* unicode_string = "Hello";
 
   return 0;
 }
