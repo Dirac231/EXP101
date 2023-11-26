@@ -1,5 +1,5 @@
 ### Variables
-Variables in C must be declared and initialized properly, reference sheet:
+Variables in C must be declared and initialized before use:
 
 ```C
 // Native Types
@@ -11,20 +11,18 @@ const int a = 1;      // Use the "const" keyword to make a variable read-only
 
 // Variables outside functions are "global"
 // - Available everywhere in the code
-// - Allocated on the heap
 int A = 1;
 const double pi = 3.14;
 
 // Variables inside functions are "local"
 // - Available only inside the function
-// - Allocated on the stack
 void main(){
   int x = 1;
 }
 
 // Pointers are memory addresses of variables
 int n = 5;    // We create an integer "n"
-int* p = &n;  // We create a integer pointer "p", pointing to the "n" variable using &
+int* p = &n;  // We create a integer pointer "p", pointing to the "n" variable address using &
 *p = 1;       // The value contained in the pointer is accessed with *, changing this value will also change "n"
 p++           // Pointers can be incremented to the next memory address, "p" does not point to "n" anymore
 ```
